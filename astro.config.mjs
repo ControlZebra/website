@@ -10,7 +10,7 @@ export default defineConfig({
   output: 'server',
   adapter: cloudflare(),
   image: {
-    service: 'compile'
+    service: { entrypoint: 'astro/assets/services/compile' }
   },
   integrations: [react()],
 

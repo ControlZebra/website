@@ -10,6 +10,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^12.6.2",
     "@astrojs/react": "^4.4.2",
     "@tailwindcss/vite": "^4.1.18",
     "@types/react": "^19.2.10",
@@ -18,5 +19,10 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "tailwindcss": "^4.1.18"
+  },
+  "overrides": {
+    "wrangler": "^4.61.1",
+    "miniflare": "^4.20260128.0",
+    "undici": "^7.20.0"
   }
 }

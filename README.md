@@ -112,6 +112,19 @@ The site can be deployed to any static hosting:
 - **Cloudflare Pages**: GitHub integration
 - **AWS S3 + CloudFront**: Upload `dist/` folder
 
+### Cloudflare Pages
+
+This project uses the Astro Cloudflare adapter for Pages.
+
+**Build settings:**
+
+- Build command: `npm run build`
+- Build output directory: `dist`
+
+**Runtime:**
+
+- Node.js 18+ (set in Cloudflare Pages project settings)
+
 ## License
 
 Part of the ControlZebra project.

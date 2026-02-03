@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!-- Background circle -->
+  <circle cx="24" cy="24" r="22" fill="#22c55e" fill-opacity="0.2"/>
+  <circle cx="24" cy="24" r="18" fill="#0a0a0a"/>
+  
+  <!-- Git branch nodes forming pattern -->
+  <circle cx="24" cy="14" r="3" fill="#22c55e"/>
+  <circle cx="18" cy="24" r="3" fill="#4ade80"/>
+  <circle cx="30" cy="24" r="3" fill="#4ade80"/>
+  <circle cx="24" cy="34" r="3" fill="#22c55e"/>
+  
+  <!-- Connecting lines -->
+  <path d="M24 17 L24 31 M21 24 L27 24" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-opacity="0.6"/>
+  
+  <!-- Accent stripes -->
+  <path d="M15 20 L18 17 M33 20 L30 17 M15 28 L18 31 M33 28 L30 31" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

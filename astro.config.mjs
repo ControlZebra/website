@@ -9,6 +9,9 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   output: 'server',
   adapter: cloudflare(),
+  image: {
+    service: 'compile'
+  },
   integrations: [react()],
 
   vite: {

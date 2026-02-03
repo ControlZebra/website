@@ -1,6 +1,7 @@
 {
   "name": "controlzebra-website",
   "compatibility_date": "2026-02-03",
+  "compatibility_flags": ["nodejs_compat"],
   "main": "./dist/_worker.js",
   "assets": {
     "directory": "./dist"

@@ -162,13 +162,12 @@
 .screenshotFrame {
   max-width: 900px;
   width: 100%;
+  line-height: 0;
   border-radius: 16px;
   overflow: hidden;
-  border: 1px solid #262626;
-  box-shadow:
-    0 25px 60px -12px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(34, 197, 94, 0.06),
-    0 0 80px rgba(34, 197, 94, 0.04);
+  background: #0b0b0b;
+  border: 1px solid rgba(245, 158, 11, 0.18);
+  box-shadow: 0 24px 56px -14px rgba(0, 0, 0, 0.7);
 }
 
 .screenshotImg {

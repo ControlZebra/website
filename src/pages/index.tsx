@@ -100,12 +100,12 @@ function Hero() {
     <section className={styles.hero}>
       <div className="container">
         <h1 className={styles.heroTitle}>
-          <span className={styles.heroFunkyText}>Git, in High-Res</span>
+          <span className={styles.heroFunkyText}>E-Stop for Bad Code</span>
           <br />
-          <span className={styles.heroHighlight}>See what you ship</span>
+          <span className={styles.heroHighlight}>See what you change</span>
         </h1>
         <p className={styles.heroSubtitle}>
-          Collaboration tool for high performance automation teams. Simple, visual, and open.
+          Powerful Change Management Tool for modern Industrial Automation. Simple, visual, and open.
         </p>
         <div className={styles.heroCta}>
           <a href="#waitlist" className={styles.ctaPrimary}>

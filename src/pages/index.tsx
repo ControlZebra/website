@@ -185,8 +185,7 @@ function Comparison() {
             Why <span className={styles.comparisonHighlight}>ControlZebra</span>?
           </h2>
           <p className={styles.sectionSubtitle}>
-            We're not replacing Git. We're making it accessible for the 90% who
-            just want to save their work and collaborate faster.
+            Leading companies choose ControlZebra to keep teams in sync without the Git headaches. Here's how we compare to traditional version control systems.
           </p>
         </div>
         <div className={styles.comparisonWrap}>

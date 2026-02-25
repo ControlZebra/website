@@ -9,68 +9,79 @@ const steps = [
     number: 1,
     title: "Open Your Project",
     description:
-      "Open any folder. ControlZebra detects your repository and shows what changed.",
+      "Open local or a cloned project repository. You are on the main branch - the single source of truth.",
   },
   {
     number: 2,
-    title: "Make Changes & Save",
+    title: "Save Changes, Create Checkpoints",
     description:
-      'Work on your files as usual. When ready, click "Save Changes" to create a checkpoint.',
+      'Work on your files as usual. When ready, click "Save Changes" to create a branch and save a checkpoint.',
   },
   {
     number: 3,
-    title: "Sync & Share",
+    title: "Share in a branch-new Way",
     description:
-      'Click "Sync" to pull team updates and "Share" to push your work. That\'s it.',
+      'Click "Push to Cloud" to share your branch with the team. Your Main branch is untouched.',
   },
   {
     number: 4,
+    title: "Collaborate Without Conflicts",
+    description:
+      'When changes are ready, click "Merge to Main". ControlZebra automatically handles merges and conflicts with a visual helper.',
+  },
+  {
+    number: 5,
     title: "Review History",
     description:
-      "Browse every past save. Compare versions, undo mistakes, and restore files.",
+      "Browse timeline of changes. Compare versions, undo mistakes, and restore files.",
   },
 ];
 
 const comparisons = [
   {
-    aspect: "Learning Curve",
-    cz: "Minutes to learn",
-    trad: "Weeks to months",
-  },
+    aspect: "Desktop client",
+    cz: "Dedicated asset management app built for non-technical users",
+    trad: "Fork of open-source Git client built for text files",
+  }, 
   {
-    aspect: "Large Binary Files",
-    cz: "In-built preview & diff visualizer",
-    trad: "No native support, manual setup needed",
+    aspect: "Domain Specific Visualizations",
+    cz: "Visualizers for PDFs, images, and PLC files",
+    trad: "No support for pdf & image diffs.",
   },
   {
     aspect: "Error Recovery",
     cz: "Undo / Discard buttons",
-    trad: 'Internet to rescue',
+    trad: 'No undo. Hours of recovery work',
   },
   {
-    aspect: "Merge Conflicts",
-    cz: "Visual conflict helper",
-    trad: "Edit cryptic markers",
+    aspect: "Vendor Lock-in",
+    cz: "Your files are your business. Compatible with any Git host",
+    trad: "Lock-in to vendor hosting and proprietary formats",
   },
   {
     aspect: "Team Onboarding",
     cz: "Productive in minutes",
     trad: "Days of training",
   },
+  {
+    aspect: "Pricing",
+    cz: "Transparent: Free for public repos, paid plans for teams",
+    trad: "Opaque and needs a sales call",
+  },
 ];
 
 const faqs = [
   {
     q: "Do I need to know Git to use ControlZebra?",
-    a: 'Not at all. ControlZebra is designed for people who don\'t want to learn Git. You just click "Save", "Sync", and "Share".',
+    a: 'No. ControlZebra uses visual workflows. Users say their experience is more like using Google Docs with version history, rather than a traditional Git client. We love that feedback.',
   },
   {
     q: "What file types does ControlZebra support?",
-    a: "Any file type that Git supports. For large binary files (PSDs, videos, CAD files, PLC programs), we automatically configure Git LFS.",
+    a: "All file types, by default. ControlZebra has advanced visualizer support for Studio 5000 files (L5X, L5K), PDFs and images. We are adding more file types based on user feedback.",
   },
   {
     q: "Does it work with existing Git repositories?",
-    a: "Yes. ControlZebra is fully compatible with standard Git repositories hosted on GitHub, GitLab, Bitbucket, or any other Git server.",
+    a: "Yes. ControlZebra is fully compatible with standard Git repositories hosted on GitHub, GitLab, Bitbucket, or any other Git server. We have deep integration with Github (standard & enterprise) & soon Gitlab.",
   },
   {
     q: "How does it handle merge conflicts?",
@@ -78,11 +89,11 @@ const faqs = [
   },
   {
     q: "Is my data stored on your servers?",
-    a: "No. ControlZebra is a desktop application that runs entirely on your computer. Your files stay on your machine and your chosen Git host.",
+    a: "No. All major manufacturers already have standard enterprise git solutions (e.g., Github Enterprise or Azure DevOps etc.). We at ControlZebra believe in open standards. You should be able to use what your IT department is already using. Your files stay on your machine and your chosen Git host.",
   },
   {
     q: "What platforms does it run on?",
-    a: "Windows, macOS, and Linux.",
+    a: "Windows 11 (x64) at launch, with support for more platforms in the future based on demand.",
   },
   {
     q: "Is ControlZebra free?",
@@ -100,12 +111,12 @@ function Hero() {
     <section className={styles.hero}>
       <div className="container">
         <h1 className={styles.heroTitle}>
-          <span className={styles.heroFunkyText}>E-Stop for Bad Code</span>
+          <span className={styles.heroFunkyText}>Decode the Factory</span>
           <br />
-          <span className={styles.heroHighlight}>See what you change</span>
+          <span className={styles.heroHighlight}>Review Changes Visually</span>
         </h1>
         <p className={styles.heroSubtitle}>
-          Powerful Change Management Tool for modern Industrial Automation. Simple, visual, and open.
+          Visual Change Management Tool for critical industrial automation assets. Edit, Review, Share and Manage changes, the DevOps way.
         </p>
         <div className={styles.heroCta}>
           <a href="#waitlist" className={styles.ctaPrimary}>
@@ -185,7 +196,7 @@ function Comparison() {
             Why <span className={styles.comparisonHighlight}>ControlZebra</span>?
           </h2>
           <p className={styles.sectionSubtitle}>
-            Leading companies choose ControlZebra to keep teams in sync without the Git headaches. Here's how we compare to traditional version control systems.
+            Leading Manufacturers & Systems Integrators choose ControlZebra to keep teams in sync without the Git headaches. Here's how we compare to traditional version control systems.
           </p>
         </div>
         <div className={styles.comparisonWrap}>
@@ -195,7 +206,7 @@ function Comparison() {
               <div className={`${styles.comparisonColumnHeader} ${styles.comparisonColumnHeaderCz}`}>
                 ControlZebra
               </div>
-              <div className={styles.comparisonColumnHeader}>Traditional Git</div>
+              <div className={styles.comparisonColumnHeader}>Other Vendors</div>
             </div>
 
             {comparisons.map((c, i) => (

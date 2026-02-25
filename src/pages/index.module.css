@@ -277,7 +277,7 @@
   height: 2.75rem;
   border-radius: 50%;
   background: rgba(34, 197, 94, 0.1);
-  border: 2px solid var(--ifm-color-primary);
+  border: 2px solid #22c55e;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -288,13 +288,13 @@
 .timelineDotInner {
   font-weight: 700;
   font-size: 1rem;
-  color: var(--ifm-color-primary);
+  color: #22c55e;
 }
 
 .timelineLine {
   width: 2px;
   flex: 1;
-  background: linear-gradient(to bottom, var(--ifm-color-primary), #1e1e1e);
+  background: linear-gradient(to bottom, #22c55e, #1e1e1e);
   min-height: 2rem;
 }
 
@@ -410,30 +410,21 @@
 }
 
 @media (max-width: 800px) {
-  .comparisonHeaderRow,
-  .comparisonRow {
-    grid-template-columns: 1fr;
+  .comparisonWrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
-  .comparisonAspectHeader {
-    display: none;
+  .comparisonGrid {
+    min-width: 640px;
   }
 
-  .comparisonColumnHeader {
-    text-align: left;
-    padding-top: 0.75rem;
-    padding-bottom: 0.25rem;
-  }
-
-  .comparisonRow {
-    padding-bottom: 0.5rem;
-  }
-
+  .comparisonAspectHeader,
+  .comparisonColumnHeader,
+  .comparisonAspect,
   .comparisonCell {
-    text-align: left;
-    padding-top: 0.2rem;
-    padding-bottom: 0.6rem;
-    justify-content: flex-start;
+    padding: 0.75rem 0.875rem;
+    font-size: 0.875rem;
   }
 }
 

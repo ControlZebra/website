@@ -19,6 +19,8 @@ pnpm-debug.log*
 
 # IDE
 .idea/
+.github/
+.vscode/
 *.swp
 
 # Cloudflare

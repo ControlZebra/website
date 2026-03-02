@@ -17,7 +17,7 @@ It delivers following value:
 
 ## No lock-in, We promise 
 
-We are big fans of open standards and even bigger critics of vendor lock-in. That is why your project repository stays on Github & can be operated without ControlZebra. We want you to stay because our platform **delivers genuine value**. After all, our mission is to democratize the DevOps for automation community, not to take them hostage.
+We are big fans of open standards and even bigger critics of vendor lock-in. That is why your project repository stays on Github/GitLab & can be operated without ControlZebra. We want you to stay because our platform **delivers genuine value**. Throughout your journey with ControlZebra and after, your data will stay with you - with your selected git provider.
 
 
 ## Why ControlZebra

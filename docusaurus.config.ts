@@ -26,7 +26,7 @@ const config: Config = {
   },
 
   stylesheets: [
-    "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap",
+    "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@700&display=swap",
   ],
 
   presets: [
@@ -63,8 +63,8 @@ const config: Config = {
           label: "Docs",
         },
         {
-          href: "https://github.com/ControlZebra",
-          label: "GitHub",
+          href: "https://discord.gg/ewh4qs5rkd",
+          label: "Join Community",
           position: "right",
         },
       ],
@@ -89,12 +89,8 @@ const config: Config = {
               href: "https://github.com/ControlZebra",
             },
             {
-              label: "Twitter",
-              href: "https://twitter.com/controlzebra",
-            },
-            {
-              label: "LinkedIn",
-              href: "https://linkedin.com/company/controlzebra",
+              label: "Discord",
+              href: "https://discord.gg/ewh4qs5rkd",
             },
           ],
         },
@@ -104,10 +100,6 @@ const config: Config = {
             {
               label: "Report an Issue",
               href: "https://github.com/ControlZebra/controlzebra-releases/issues",
-            },
-            {
-              label: "Contact Us",
-              href: "mailto:hello@controlzebra.com",
             },
           ],
         },

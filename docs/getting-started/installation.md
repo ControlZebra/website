@@ -3,8 +3,7 @@ sidebar_position: 1
 ---
 
 # Installation
-
-Before you open the installer, make sure that you disable the antivirus as ControlZebra is not a 'Windows Trusted' code publisher yet. 
+ControlZebra is in public beta phase. Consider joining the Discord group for feedback.
 
 ## Instructions
 

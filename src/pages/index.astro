@@ -878,6 +878,7 @@
           <span class="nav-tag">Public Beta</span>
         </div>
         <ul class="nav-links">
+          <li><a href="/docs/">Docs</a></li>
           <li><a href="#features">Features</a></li>
           <li><a href="#workflow">Workflow</a></li>
           <li><a href="#users">Users</a></li>
@@ -895,6 +896,7 @@
             no software expertise required.
           </p>
           <div class="hero-actions">
+            <a href="/docs/" class="btn-ghost">Read documentation</a>
             <a href="#download" class="btn-primary">Download for Windows</a>
             <a href="#features" class="btn-ghost">Explore features</a>
           </div>
@@ -1113,15 +1115,19 @@
       reveals.forEach((el) => observer.observe(el));
 
       // Screenshot theme toggle switches
-      document.querySelectorAll('.switch-track').forEach((track) => {
+      document.querySelectorAll<HTMLElement>('.switch-track').forEach((track) => {
         const toggle = () => {
-          const container = track.closest('[data-screenshot-theme]');
+          const container = track.closest<HTMLElement>('[data-screenshot-theme]');
+          if (!container) {
+            return;
+          }
+
           const next = container.dataset.screenshotTheme === 'dark' ? 'light' : 'dark';
           container.dataset.screenshotTheme = next;
-          track.setAttribute('aria-checked', next === 'light');
+          track.setAttribute('aria-checked', next === 'light' ? 'true' : 'false');
         };
         track.addEventListener('click', toggle);
-        track.addEventListener('keydown', (e) => {
+        track.addEventListener('keydown', (e: KeyboardEvent) => {
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
         });
       });

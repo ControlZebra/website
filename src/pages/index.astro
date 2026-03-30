@@ -114,7 +114,7 @@
 
       .nav-brand {
         font-weight: 700;
-        font-size: 0.95rem;
+        font-size: 1.15rem;
         letter-spacing: 0.02em;
         color: var(--text);
       }
@@ -140,7 +140,7 @@
 
       .nav-links a {
         font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.72rem;
+        font-size: 0.82rem;
         letter-spacing: 0.04em;
         color: var(--muted);
         transition: color 180ms;
@@ -176,7 +176,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 72px 56px;
+        padding: 80px 64px;
         position: relative;
       }
 
@@ -184,7 +184,7 @@
         display: inline-flex;
         align-items: center;
         gap: 10px;
-        margin-bottom: 36px;
+        margin-bottom: 40px;
         font-family: 'IBM Plex Mono', monospace;
         font-size: 0.70rem;
         letter-spacing: 0.06em;
@@ -210,7 +210,7 @@
         font-size: clamp(2.8rem, 4.8vw, 4.4rem);
         line-height: 1;
         letter-spacing: -0.02em;
-        margin-bottom: 24px;
+        margin-bottom: 28px;
       }
 
       h1 .accent { color: var(--accent); }
@@ -262,7 +262,7 @@
 
       .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
-      /* ── Hero visual — ladder logic diff ──────── */
+      /* ── Hero visual — desktop shell mock ─────── */
       .hero-visual {
         border-left: 1px solid var(--border);
         background:
@@ -270,32 +270,40 @@
           var(--surface);
         display: flex;
         align-items: center;
-        justify-content: center;
-        padding: 48px 40px;
+        justify-content: flex-end;
+        padding: 48px 0 48px 40px;
         position: relative;
         overflow: hidden;
       }
 
-      /* Faint corner coordinates — technical detail */
-      .hero-visual::before {
-        content: '48.8566° N, 2.3522° E';
-        position: absolute;
-        top: 16px;
-        right: 20px;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.56rem;
-        color: rgba(148, 163, 184, 0.18);
-        letter-spacing: 0.06em;
+
+
+      .desktop-shell {
+        width: 100%;
+        max-width: 720px;
+        background: #0f1319;
+        border: 1px solid var(--border-strong);
+        border-right: none;
+        border-radius: 10px 0 0 10px;
+        overflow: hidden;
+        box-shadow:
+          0 24px 60px rgba(0, 0, 0, 0.45),
+          0 0 0 1px rgba(255, 255, 255, 0.02);
+        animation: float-in 0.8s ease-out both;
+        position: relative;
       }
 
-      .diff-panel {
-        width: 100%;
-        max-width: 520px;
-        background: var(--bg);
-        border: 1px solid var(--border-strong);
-        border-radius: 6px;
+      /* ── Screenshot image (cropped to left 70%) ── */
+      .desktop-screenshot-wrap {
+        position: relative;
+        line-height: 0;
         overflow: hidden;
-        animation: float-in 0.8s ease-out both;
+      }
+
+      .desktop-screenshot {
+        width: 142.86%; /* 100 / 0.70 — shows left 70% of image */
+        max-width: none;
+        height: auto;
       }
 
       @keyframes float-in {
@@ -303,147 +311,68 @@
         to { opacity: 1; transform: translateY(0); }
       }
 
-      .diff-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 18px;
-        border-bottom: 1px solid var(--border);
-        background: var(--surface);
-      }
-
-      .diff-title {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.68rem;
-        color: var(--muted);
-        letter-spacing: 0.04em;
-      }
-
-      .diff-badge {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.60rem;
-        font-weight: 600;
-        letter-spacing: 0.04em;
-        padding: 3px 8px;
-        border-radius: 3px;
-        background: var(--accent-glow);
-        color: var(--accent);
-        border: 1px solid rgba(212, 164, 70, 0.2);
-      }
-
-      .diff-body { padding: 0; }
-
-      .diff-panes {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .diff-pane {
-        padding: 16px;
-      }
-
-      .diff-pane + .diff-pane {
-        border-left: 1px solid var(--border);
-      }
-
-      .pane-label {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.62rem;
-        font-weight: 600;
-        letter-spacing: 0.04em;
-        color: var(--muted);
-        margin-bottom: 14px;
-        padding-bottom: 8px;
-        border-bottom: 1px solid var(--border);
-      }
-
-      /* Ladder rails (from landing page) */
-      .ladder {
-        display: grid;
-        grid-template-columns: 20px 1fr;
-        gap: 8px;
-      }
-
-      .rail {
-        position: relative;
-        min-height: 180px;
-      }
-
-      .rail::before,
-      .rail::after {
-        content: '';
+      /* ── Theme toggle switch for screenshots ── */
+      .theme-switch {
         position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 2px;
-        background: rgba(200, 210, 220, 0.35);
-      }
-
-      .rail::before { left: 3px; }
-      .rail::after { right: 3px; }
-
-      .rungs { display: grid; gap: 10px; }
-
-      .rung {
-        display: grid;
-        grid-template-columns: 28px 1fr auto;
-        gap: 6px;
+        top: 16px;
+        right: 20px;
+        display: flex;
         align-items: center;
-        padding: 8px 10px;
-        border-radius: 4px;
-        background: rgba(255, 255, 255, 0.015);
-        transition: background 180ms;
+        gap: 8px;
+        z-index: 5;
+        color: var(--muted);
       }
 
-      .contact-sym {
-        width: 22px;
-        height: 12px;
-        border-left: 2px solid var(--text-2);
-        border-right: 2px solid var(--text-2);
+      .theme-switch svg {
+        width: 13px;
+        height: 13px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        flex-shrink: 0;
+        transition: color 180ms;
       }
 
-      .wire-sym {
-        height: 1.5px;
-        background: rgba(200, 210, 220, 0.35);
+      .theme-switch .icon-sun { color: var(--muted); }
+      .theme-switch .icon-moon { color: var(--accent); }
+      [data-screenshot-theme="light"] .theme-switch .icon-sun { color: var(--accent); }
+      [data-screenshot-theme="light"] .theme-switch .icon-moon { color: var(--muted); }
+
+      .switch-track {
+        position: relative;
+        width: 36px;
+        height: 20px;
+        background: var(--surface-2);
+        border: 1px solid var(--border-strong);
+        border-radius: 10px;
+        cursor: pointer;
+        transition: border-color 180ms;
       }
 
-      .instr {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.62rem;
-        font-weight: 500;
-        padding: 5px 8px;
-        border-radius: 3px;
-        letter-spacing: 0.02em;
-        white-space: nowrap;
+      .switch-track:hover { border-color: var(--accent); }
+
+      .switch-knob {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 14px;
+        height: 14px;
+        background: var(--accent);
+        border-radius: 50%;
+        transition: transform 200ms ease;
+        transform: translateX(16px);
       }
 
-      .instr-stable {
-        color: var(--text-2);
-        background: rgba(148, 163, 184, 0.06);
-        border: 1px solid rgba(148, 163, 184, 0.12);
+      [data-screenshot-theme="light"] .switch-knob {
+        transform: translateX(0);
       }
 
-      .rung-remove {
-        background: var(--red-dim);
-        outline: 1px solid rgba(192, 82, 82, 0.18);
-      }
-
-      .rung-add {
-        background: var(--green-dim);
-        outline: 1px solid rgba(79, 173, 86, 0.18);
-      }
-
-      .instr-remove {
-        color: #e8a0a0;
-        background: rgba(192, 82, 82, 0.16);
-        border: 1px solid rgba(192, 82, 82, 0.25);
-      }
-
-      .instr-add {
-        color: #a0dea4;
-        background: rgba(79, 173, 86, 0.16);
-        border: 1px solid rgba(79, 173, 86, 0.25);
-      }
+      .screenshot-img-dark { display: block; }
+      .screenshot-img-light { display: none; }
+      [data-screenshot-theme="light"] .screenshot-img-dark { display: none; }
+      [data-screenshot-theme="light"] .screenshot-img-light { display: block; }
 
       /* ═══════════════════════════════════════════
          METRICS BAND — Technical Grid signature
@@ -455,7 +384,7 @@
       }
 
       .metric {
-        padding: 28px 32px;
+        padding: 40px 32px;
         border-right: 1px solid var(--border);
         text-align: center;
         transition: background 280ms;
@@ -472,26 +401,29 @@
       }
 
       .metric-label {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.62rem;
+        font-family: 'DM Sans', system-ui, sans-serif;
+        font-size: 0.68rem;
+        font-weight: 500;
+        text-transform: uppercase;
         color: var(--muted);
-        letter-spacing: 0.04em;
-        margin-top: 6px;
+        letter-spacing: 0.08em;
+        margin-top: 10px;
       }
 
       /* ═══════════════════════════════════════════
          SECTION SYSTEM
          ═══════════════════════════════════════════ */
       .section-header {
-        padding: 56px 56px 0;
+        padding: 80px 56px 0;
         max-width: 56ch;
       }
 
       .label {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.70rem;
+        font-family: 'DM Sans', system-ui, sans-serif;
+        font-size: 0.72rem;
         font-weight: 600;
-        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        letter-spacing: 0.10em;
         color: var(--accent);
         margin-bottom: 12px;
       }
@@ -501,7 +433,7 @@
         font-size: clamp(1.6rem, 2.8vw, 2.2rem);
         line-height: 1.08;
         letter-spacing: -0.01em;
-        margin-bottom: 12px;
+        margin-bottom: 16px;
       }
 
       .section-header p {
@@ -526,7 +458,7 @@
       }
 
       .feat {
-        padding: 48px;
+        padding: 56px;
         border-right: 1px solid var(--border);
         transition: background 280ms;
       }
@@ -540,10 +472,10 @@
         font-size: 0.68rem;
         color: var(--accent);
         letter-spacing: 0.04em;
-        margin-bottom: 18px;
+        margin-bottom: 22px;
       }
 
-      .feat h3 { margin-bottom: 10px; }
+      .feat h3 { margin-bottom: 14px; }
 
       .feat p {
         color: var(--muted);
@@ -562,13 +494,13 @@
       }
 
       .callout-copy {
-        padding: 64px 56px;
+        padding: 80px 64px;
         display: flex;
         flex-direction: column;
         justify-content: center;
       }
 
-      .callout-copy h2 { margin-bottom: 14px; }
+      .callout-copy h2 { margin-bottom: 20px; }
 
       .callout-copy > p {
         color: var(--muted);
@@ -576,54 +508,44 @@
         max-width: 40ch;
       }
 
-      .callout-list {
-        padding: 48px;
-        background: var(--surface);
+      .callout-visual {
         border-left: 1px solid var(--border);
+        background:
+          radial-gradient(ellipse 80% 60% at 50% 50%, var(--surface-glow), transparent),
+          var(--surface);
         display: flex;
-        flex-direction: column;
-        gap: 12px;
+        align-items: center;
         justify-content: center;
+        padding: 48px;
+        position: relative;
+        overflow: hidden;
       }
 
-      .callout-row {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 14px;
-        align-items: start;
-        padding: 16px 18px;
-        border-radius: 4px;
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid var(--border);
-        transition: border-color 200ms, background 200ms;
+      .diff-shell {
+        width: 100%;
+        max-width: 640px;
+        background: #0f1319;
+        border: 1px solid var(--border-strong);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow:
+          0 24px 60px rgba(0, 0, 0, 0.45),
+          0 0 0 1px rgba(255, 255, 255, 0.02);
       }
 
-      .callout-row:hover {
-        border-color: rgba(212, 164, 70, 0.2);
-        background: var(--surface-glow);
+      .diff-screenshot-wrap {
+        position: relative;
+        line-height: 0;
+        overflow: hidden;
       }
 
-      .callout-chip {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.62rem;
-        font-weight: 600;
-        letter-spacing: 0.04em;
-        padding: 4px 10px;
-        border-radius: 3px;
-        color: var(--bg);
-        background: var(--accent);
-        line-height: 1;
-        margin-top: 2px;
-      }
-
-      .callout-row p {
-        color: var(--text-2);
-        font-size: 0.92rem;
-        line-height: 1.55;
+      .diff-screenshot {
+        width: 100%;
+        height: auto;
       }
 
       /* ═══════════════════════════════════════════
-         WORKFLOW — Step cards in grid
+         WORKFLOW — File Manager screenshot
          ═══════════════════════════════════════════ */
       .workflow {
         display: grid;
@@ -632,13 +554,13 @@
       }
 
       .workflow-copy {
-        padding: 64px 56px;
+        padding: 80px 64px;
         display: flex;
         flex-direction: column;
         justify-content: center;
       }
 
-      .workflow-copy h2 { margin-bottom: 14px; }
+      .workflow-copy h2 { margin-bottom: 20px; }
 
       .workflow-copy > p {
         color: var(--muted);
@@ -646,59 +568,40 @@
         max-width: 42ch;
       }
 
-      .workflow-steps {
-        padding: 48px;
-        background: var(--surface);
+      .workflow-visual {
         border-left: 1px solid var(--border);
-      }
-
-      .step {
-        display: grid;
-        grid-template-columns: 40px 1fr;
-        gap: 16px;
-        padding: 22px 0;
-        border-bottom: 1px solid var(--border);
-        animation: step-in 0.4s ease-out both;
-      }
-
-      .step:last-child { border-bottom: none; }
-
-      @keyframes step-in {
-        from { opacity: 0; transform: translateX(12px); }
-        to { opacity: 1; transform: translateX(0); }
-      }
-
-      .step:nth-child(1) { animation-delay: 0.05s; }
-      .step:nth-child(2) { animation-delay: 0.12s; }
-      .step:nth-child(3) { animation-delay: 0.19s; }
-      .step:nth-child(4) { animation-delay: 0.26s; }
-
-      .step-num {
-        width: 34px;
-        height: 34px;
+        background:
+          radial-gradient(ellipse 80% 60% at 50% 50%, var(--surface-glow), transparent),
+          var(--surface);
         display: flex;
         align-items: center;
         justify-content: center;
-        background: var(--surface-2);
+        padding: 48px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .files-shell {
+        width: 100%;
+        max-width: 640px;
+        background: #0f1319;
         border: 1px solid var(--border-strong);
-        border-radius: 4px;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.68rem;
-        font-weight: 600;
-        color: var(--accent);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow:
+          0 24px 60px rgba(0, 0, 0, 0.45),
+          0 0 0 1px rgba(255, 255, 255, 0.02);
       }
 
-      .step-title {
-        font-weight: 600;
-        font-size: 0.88rem;
-        margin-bottom: 4px;
-        color: var(--text);
+      .files-screenshot-wrap {
+        position: relative;
+        line-height: 0;
+        overflow: hidden;
       }
 
-      .step p {
-        color: var(--muted);
-        font-size: 0.88rem;
-        line-height: 1.55;
+      .files-screenshot {
+        width: 100%;
+        height: auto;
       }
 
       /* ═══════════════════════════════════════════
@@ -711,13 +614,13 @@
       }
 
       .infra-copy {
-        padding: 64px 56px;
+        padding: 80px 64px;
         display: flex;
         flex-direction: column;
         justify-content: center;
       }
 
-      .infra-copy h2 { margin-bottom: 14px; }
+      .infra-copy h2 { margin-bottom: 20px; }
 
       .infra-copy > p {
         color: var(--muted);
@@ -726,12 +629,12 @@
       }
 
       .infra-checks {
-        padding: 48px;
+        padding: 56px;
         background: var(--surface);
         border-left: 1px solid var(--border);
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 16px;
         justify-content: center;
       }
 
@@ -740,7 +643,7 @@
         grid-template-columns: auto 1fr;
         gap: 14px;
         align-items: start;
-        padding: 16px 18px;
+        padding: 20px 22px;
         border-radius: 4px;
         background: rgba(255, 255, 255, 0.02);
         border: 1px solid var(--border);
@@ -785,7 +688,7 @@
       }
 
       .persona {
-        padding: 48px;
+        padding: 56px;
         border-right: 1px solid var(--border);
         transition: background 280ms;
       }
@@ -797,11 +700,11 @@
         width: 36px;
         height: 3px;
         background: linear-gradient(90deg, var(--accent), var(--accent-dim));
-        margin-bottom: 20px;
+        margin-bottom: 24px;
         border-radius: 2px;
       }
 
-      .persona h3 { margin-bottom: 10px; }
+      .persona h3 { margin-bottom: 14px; }
 
       .persona p {
         color: var(--muted);
@@ -813,7 +716,7 @@
          CTA
          ═══════════════════════════════════════════ */
       .cta {
-        padding: 80px 56px;
+        padding: 100px 56px;
         text-align: center;
         border-bottom: 1px solid var(--border);
         position: relative;
@@ -830,19 +733,19 @@
 
       .cta h2 {
         font-size: clamp(1.8rem, 3.2vw, 2.5rem);
-        margin-bottom: 14px;
+        margin-bottom: 20px;
       }
 
       .cta h2 .accent { color: var(--accent); }
 
       .cta > p {
         color: var(--muted);
-        margin-bottom: 32px;
+        margin-bottom: 40px;
         font-size: 1.02rem;
       }
 
       .cta-note {
-        margin-top: 14px;
+        margin-top: 20px;
         font-family: 'IBM Plex Mono', monospace;
         font-size: 0.66rem;
         color: var(--muted);
@@ -856,7 +759,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 20px 48px;
+        padding: 28px 48px;
         font-family: 'IBM Plex Mono', monospace;
         font-size: 0.66rem;
         color: var(--muted);
@@ -930,10 +833,11 @@
         }
 
         .hero-visual,
-        .callout-list,
-        .workflow-steps,
+        .callout-visual,
+        .workflow-visual,
         .infra-checks {
           border-left: none;
+          border-right: none;
           border-top: 1px solid var(--border);
         }
 
@@ -942,24 +846,23 @@
         .callout-copy,
         .workflow-copy,
         .infra-copy,
-        .section-header { padding: 40px 28px; }
+        .section-header { padding: 56px 28px; }
         .section-header { padding-bottom: 0; }
         .hero-visual,
-        .callout-list,
-        .workflow-steps,
-        .infra-checks { padding: 32px 28px; }
-        .feat, .persona { padding: 32px 28px; }
-        .cta { padding: 56px 28px; }
+        .callout-visual,
+        .workflow-visual,
+        .infra-checks { padding: 40px 28px; }
+        .feat, .persona { padding: 40px 28px; }
+        .cta { padding: 72px 28px; }
 
         .nav-links { display: none; }
       }
 
       @media (max-width: 640px) {
-        .diff-panes { grid-template-columns: 1fr; }
-        .diff-pane + .diff-pane { border-left: none; border-top: 1px solid var(--border); }
-        .rungs { gap: 6px; }
-        .rung { grid-template-columns: 20px 1fr; }
-        .instr { grid-column: 1 / -1; }
+        .desktop-shell {
+          border-radius: 4px;
+        }
+
         .hero-copy { padding: 32px 20px; }
         .nav { padding: 0 16px; }
         .site-footer { padding: 16px; flex-direction: column; gap: 8px; text-align: center; }
@@ -972,7 +875,7 @@
       <nav class="nav">
         <div class="nav-left">
           <div class="nav-brand">ControlZebra</div>
-          <span class="nav-tag">v0.13 beta</span>
+          <span class="nav-tag">Public Beta</span>
         </div>
         <ul class="nav-links">
           <li><a href="#features">Features</a></li>
@@ -985,11 +888,7 @@
       <!-- HERO -->
       <section class="hero">
         <div class="hero-copy">
-          <div class="hero-status">
-            <span class="status-dot"></span>
-            System online
-          </div>
-          <h1>PLC version control with <span class="accent">visual diff</span></h1>
+          <h1>Version Control for the <span class="accent">Factory Floor</span></h1>
           <p class="hero-desc">
             A fast, visual Git client purpose-built for automation engineers.
             Compare ladder logic diffs, rollback safely, and sync when ready &mdash;
@@ -1001,61 +900,26 @@
           </div>
         </div>
 
-        <div class="hero-visual">
-          <div class="diff-panel">
-            <div class="diff-header">
-              <span class="diff-title">Main_Routine.L5X &mdash; diff</span>
-              <span class="diff-badge">2 changes</span>
-            </div>
-            <div class="diff-body">
-              <div class="diff-panes">
-                <div class="diff-pane">
-                  <div class="pane-label">Version A</div>
-                  <div class="ladder">
-                    <div class="rail"></div>
-                    <div class="rungs">
-                      <div class="rung">
-                        <span class="contact-sym"></span>
-                        <span class="wire-sym"></span>
-                        <span class="instr instr-stable">XIC Start_PB</span>
-                      </div>
-                      <div class="rung rung-remove">
-                        <span class="contact-sym"></span>
-                        <span class="wire-sym"></span>
-                        <span class="instr instr-remove">TON Mix_Timer</span>
-                      </div>
-                      <div class="rung">
-                        <span class="contact-sym"></span>
-                        <span class="wire-sym"></span>
-                        <span class="instr instr-stable">OTE Pump_Run</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="diff-pane">
-                  <div class="pane-label">Version B</div>
-                  <div class="ladder">
-                    <div class="rail"></div>
-                    <div class="rungs">
-                      <div class="rung">
-                        <span class="contact-sym"></span>
-                        <span class="wire-sym"></span>
-                        <span class="instr instr-stable">XIC Start_PB</span>
-                      </div>
-                      <div class="rung rung-add">
-                        <span class="contact-sym"></span>
-                        <span class="wire-sym"></span>
-                        <span class="instr instr-add">TON Mix_Timer_FAST</span>
-                      </div>
-                      <div class="rung">
-                        <span class="contact-sym"></span>
-                        <span class="wire-sym"></span>
-                        <span class="instr instr-stable">OTE Pump_Run</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        <div class="hero-visual" data-screenshot-theme="dark">
+          <div class="theme-switch">
+            <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <div class="switch-track" role="switch" aria-label="Toggle screenshot theme" tabindex="0"><div class="switch-knob"></div></div>
+            <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </div>
+          <div class="desktop-shell" aria-hidden="true">
+            <div class="desktop-screenshot-wrap">
+              <img
+                src="/img/app-screenshot-dark.png"
+                alt="ControlZebra desktop app in dark theme"
+                class="desktop-screenshot screenshot-img-dark"
+                loading="eager"
+              />
+              <img
+                src="/img/app-screenshot-light.png"
+                alt="ControlZebra desktop app in light theme"
+                class="desktop-screenshot screenshot-img-light"
+                loading="eager"
+              />
             </div>
           </div>
         </div>
@@ -1083,8 +947,7 @@
 
       <!-- FEATURES -->
       <div class="section-header reveal">
-        <div class="label">Core capabilities</div>
-        <h2>Everything you need. Nothing you don't.</h2>
+        <h2>Basics done right...</h2>
       </div>
       <section class="features reveal" id="features">
         <div class="feat">
@@ -1107,7 +970,6 @@
       <!-- DIFF CALLOUT -->
       <section class="callout reveal">
         <div class="callout-copy">
-          <div class="label">Visual diff</div>
           <h2>See exactly what changed.</h2>
           <p>
             Stop guessing which rung was modified. The standalone engine renders PLC logic
@@ -1115,76 +977,76 @@
             every change in seconds.
           </p>
         </div>
-        <div class="callout-list">
-          <div class="callout-row">
-            <span class="callout-chip">Diff</span>
-            <p>Highlight modified rungs instantly.</p>
+        <div class="callout-visual" data-screenshot-theme="dark">
+          <div class="theme-switch">
+            <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <div class="switch-track" role="switch" aria-label="Toggle screenshot theme" tabindex="0"><div class="switch-knob"></div></div>
+            <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           </div>
-          <div class="callout-row">
-            <span class="callout-chip">Diff</span>
-            <p>Identify deleted function blocks in seconds.</p>
-          </div>
-          <div class="callout-row">
-            <span class="callout-chip">Diff</span>
-            <p>No more accidental overwrites during commissioning.</p>
+          <div class="diff-shell" aria-hidden="true">
+            <div class="diff-screenshot-wrap">
+              <img
+                src="/img/diff-screenshot-dark.png"
+                alt="ControlZebra diff view in dark theme"
+                class="diff-screenshot screenshot-img-dark"
+                loading="lazy"
+              />
+              <img
+                src="/img/diff-screenshot-light.png"
+                alt="ControlZebra diff view in light theme"
+                class="diff-screenshot screenshot-img-light"
+                loading="lazy"
+              />
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- WORKFLOW -->
+      <!-- WORKFLOW — File Manager -->
       <section class="workflow reveal" id="workflow">
-        <div class="workflow-copy">
-          <div class="label">Daily workflow</div>
-          <h2>Four steps. Zero complexity.</h2>
-          <p>The daily ControlZebra workflow maps to what you already do &mdash; just with a safety net underneath.</p>
+        <div class="workflow-visual" data-screenshot-theme="dark">
+          <div class="theme-switch">
+            <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <div class="switch-track" role="switch" aria-label="Toggle screenshot theme" tabindex="0"><div class="switch-knob"></div></div>
+            <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </div>
+          <div class="files-shell" aria-hidden="true">
+            <div class="files-screenshot-wrap">
+              <img
+                src="/img/files-screenshot-dark.png"
+                alt="ControlZebra file browser in dark theme"
+                class="files-screenshot screenshot-img-dark"
+                loading="lazy"
+              />
+              <img
+                src="/img/files-screenshot-light.png"
+                alt="ControlZebra file browser in light theme"
+                class="files-screenshot screenshot-img-light"
+                loading="lazy"
+              />
+            </div>
+          </div>
         </div>
-        <div class="workflow-steps">
-          <div class="step">
-            <div class="step-num">1</div>
-            <div>
-              <div class="step-title">Sync</div>
-              <p>Pull the latest from your team's shared repo.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num">2</div>
-            <div>
-              <div class="step-title">Edit</div>
-              <p>Work in your PLC IDE as normal. ControlZebra watches automatically.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num">3</div>
-            <div>
-              <div class="step-title">Save a checkpoint</div>
-              <p>Describe what you changed. One click creates a revertible version.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num">4</div>
-            <div>
-              <div class="step-title">Share</div>
-              <p>Push your changes to your team when you're ready.</p>
-            </div>
-          </div>
+        <div class="workflow-copy">
+          <h2>An asset manager you already know.</h2>
+          <p>No terminal. No jargon. Browse your project files, preview changes, and manage versions &mdash; all from an interface that feels like a cloud file browser.</p>
         </div>
       </section>
 
       <!-- INFRASTRUCTURE -->
       <section class="infra reveal">
         <div class="infra-copy">
-          <div class="label">Zero friction</div>
           <h2>Professional control. Zero complexity.</h2>
           <p>You don't need to be a software developer to use professional version control.</p>
         </div>
         <div class="infra-checks">
           <div class="check-row">
             <span class="check-icon">+</span>
-            <p><strong>GitHub &amp; GitLab ready.</strong> Connects to the platforms you already use.</p>
+            <p><strong>GitHub ready.</strong> Connects to the platforms you already use.</p>
           </div>
           <div class="check-row">
             <span class="check-icon">+</span>
-            <p><strong>Standalone app.</strong> No bulky installations or background services slowing down your laptop.</p>
+            <p><strong>Light-weight app (~17 MB).</strong> No bulky installations or background services slowing down your laptop.</p>
           </div>
           <div class="check-row">
             <span class="check-icon">+</span>
@@ -1195,7 +1057,6 @@
 
       <!-- PERSONAS -->
       <div class="section-header reveal">
-        <div class="label">Built for the full delivery chain</div>
         <h2>Different jobs. One shared safety layer for PLC changes.</h2>
       </div>
       <section class="personas reveal" id="users">
@@ -1250,6 +1111,20 @@
         { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
       );
       reveals.forEach((el) => observer.observe(el));
+
+      // Screenshot theme toggle switches
+      document.querySelectorAll('.switch-track').forEach((track) => {
+        const toggle = () => {
+          const container = track.closest('[data-screenshot-theme]');
+          const next = container.dataset.screenshotTheme === 'dark' ? 'light' : 'dark';
+          container.dataset.screenshotTheme = next;
+          track.setAttribute('aria-checked', next === 'light');
+        };
+        track.addEventListener('click', toggle);
+        track.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+        });
+      });
     </script>
   </body>
 </html>

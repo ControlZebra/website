@@ -1,6 +1,8 @@
 {
-  "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "cz-website",
-  "pages_build_output_dir": "./dist",
-  "compatibility_date": "2026-03-30"
+  // Set this to today's date
+  "compatibility_date": "2026-03-30",
+  "assets": {
+    "directory": "./dist"
+  }
 }

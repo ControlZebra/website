@@ -153,15 +153,15 @@ body.homepage::after {
   position: relative;
 }
 
-h1 {
+.hero-copy h1 {
   font-weight: 700;
   font-size: clamp(2.8rem, 4.8vw, 4.4rem);
   line-height: 1;
   letter-spacing: -0.02em;
-  margin-bottom: 24px;
+  margin-bottom: clamp(28px, 3vw, 40px);
 }
 
-h1 .accent {
+.hero-copy h1 .accent {
   color: var(--accent);
 }
 
@@ -170,13 +170,14 @@ h1 .accent {
   line-height: 1.7;
   color: var(--muted);
   max-width: 44ch;
-  margin-bottom: 40px;
+  margin-bottom: clamp(44px, 4vw, 60px);
 }
 
 .hero-actions {
   display: flex;
-  gap: 12px;
+  gap: 16px;
   flex-wrap: wrap;
+  margin-top: 24px;
 }
 
 .btn-primary {

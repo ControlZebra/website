@@ -1,0 +1,38 @@
+---
+const personas = [
+  {
+    title: 'Lead Engineers',
+    description:
+      'Maintain a clean Golden Master. Review every change before it goes live on the plant floor.',
+    icon:
+      '<svg viewBox="0 0 24 24"><circle cx="12" cy="7.5" r="3.5"></circle><path d="M5.5 19c0-3 2.9-5 6.5-5s6.5 2 6.5 5"></path><path d="M17 4.5l1.2.8 1.4-.3-.3 1.4.8 1.2-1.4.3-.8 1.2-.8-1.2-1.4-.3.8-1.2-.3-1.4 1.4.3z"></path></svg>',
+  },
+  {
+    title: 'Field Technicians',
+    description:
+      'Save a checkpoint before commissioning. Revert instantly if something goes wrong. Your safety net.',
+    icon:
+      '<svg viewBox="0 0 24 24"><path d="M14.5 5.5 18.5 9.5"></path><path d="M10 18l-4 1 1-4 8.8-8.8a1.8 1.8 0 0 1 2.5 0l.5.5a1.8 1.8 0 0 1 0 2.5z"></path><path d="M13 8l3 3"></path><path d="M4.5 19.5h6"></path></svg>',
+  },
+  {
+    title: 'Project Managers',
+    description:
+      'See who changed what, when. Always have the latest development status for stakeholder reporting.',
+    icon:
+      '<svg viewBox="0 0 24 24"><path d="M4.5 18.5h15"></path><path d="M7 15V9"></path><path d="M12 15V5"></path><path d="M17 15v-3"></path><circle cx="7" cy="8" r="1"></circle><circle cx="12" cy="4" r="1"></circle><circle cx="17" cy="11" r="1"></circle></svg>',
+  },
+];
+---
+
+<section class="personas reveal" id="users">
+  {
+    personas.map((persona) => (
+      <div class="persona">
+        <div class="persona-icon" aria-hidden="true" set:html={persona.icon}></div>
+        <div class="persona-bar"></div>
+        <h3>{persona.title}</h3>
+        <p>{persona.description}</p>
+      </div>
+    ))
+  }
+</section>

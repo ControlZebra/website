@@ -3,30 +3,25 @@
  * ControlZebra Grid — Hybrid Design
  *
  * Fuses Technical Grid's structural precision (edge-to-edge border grid,
- * monospace metadata, flat dark surfaces, numbered indices) with the
+ * structured metadata, flat dark surfaces, numbered indices) with the
  * ControlZebra landing page's atmospheric depth (radial gradient glows,
  * grid overlay, ladder logic diff visualization, industrial warmth).
  *
- * Fonts: DM Sans (display + body), IBM Plex Mono (technical)
+ * Font: IBM Plex Sans
  * Palette: Deep slate (#12161c) → amber (#d4a446) accent → green (#4fad56) status
  * Mood: Industrial spec-sheet meets atmospheric product marketing
  */
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ControlZebra | Version Control for the Factory Floor</title>
-    <meta name="description" content="A fast, visual Git client purpose-built for PLC engineers. Compare ladder logic diffs, rollback safely, and sync when ready." />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <style>
+<BaseLayout
+  title="ControlZebra | Version Control for the Factory Floor"
+  description="A fast, visual Git client purpose-built for PLC engineers. Compare ladder logic diffs, rollback safely, and sync when ready."
+  themeColor="#12161c"
+  bodyClass="controlzebra-grid"
+>
+  <style>
       /* ═══════════════════════════════════════════
          TOKENS
          ═══════════════════════════════════════════ */
@@ -55,7 +50,7 @@
       html { scroll-behavior: smooth; }
 
       body {
-        font-family: 'DM Sans', system-ui, sans-serif;
+        font-family: 'IBM Plex Sans', 'Segoe UI', sans-serif;
         background: var(--bg);
         color: var(--text);
         min-height: 100vh;
@@ -120,8 +115,7 @@
       }
 
       .nav-tag {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.58rem;
+        font-size: 0.75rem;
         font-weight: 500;
         letter-spacing: 0.06em;
         color: var(--accent);
@@ -139,9 +133,9 @@
       }
 
       .nav-links a {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.72rem;
-        letter-spacing: 0.04em;
+        font-size: 0.95rem;
+        font-weight: 500;
+        letter-spacing: 0.01em;
         color: var(--muted);
         transition: color 180ms;
       }
@@ -152,9 +146,8 @@
         padding: 8px 20px;
         background: var(--accent);
         color: var(--bg);
-        font-family: 'DM Sans', sans-serif;
         font-weight: 600;
-        font-size: 0.75rem;
+        font-size: 0.95rem;
         letter-spacing: 0.02em;
         border-radius: 4px;
         transition: background 180ms, transform 140ms;
@@ -185,9 +178,9 @@
         align-items: center;
         gap: 10px;
         margin-bottom: 36px;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.70rem;
-        letter-spacing: 0.06em;
+        font-size: 0.9rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
         color: var(--accent);
       }
 
@@ -233,7 +226,7 @@
         background: var(--accent);
         color: var(--bg);
         font-weight: 600;
-        font-size: 0.84rem;
+        font-size: 1rem;
         letter-spacing: 0.02em;
         border-radius: 4px;
         transition: background 180ms, transform 140ms, box-shadow 180ms;
@@ -254,9 +247,9 @@
         border: 1px solid var(--border-strong);
         border-radius: 4px;
         color: var(--text-2);
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.75rem;
-        letter-spacing: 0.04em;
+        font-size: 1rem;
+        font-weight: 500;
+        letter-spacing: 0.01em;
         transition: border-color 180ms, color 180ms;
       }
 
@@ -282,8 +275,8 @@
         position: absolute;
         top: 16px;
         right: 20px;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.56rem;
+        font-size: 0.75rem;
+        font-weight: 500;
         color: rgba(148, 163, 184, 0.18);
         letter-spacing: 0.06em;
       }
@@ -313,15 +306,14 @@
       }
 
       .diff-title {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.68rem;
+        font-size: 0.86rem;
+        font-weight: 500;
         color: var(--muted);
         letter-spacing: 0.04em;
       }
 
       .diff-badge {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.60rem;
+        font-size: 0.78rem;
         font-weight: 600;
         letter-spacing: 0.04em;
         padding: 3px 8px;
@@ -347,8 +339,7 @@
       }
 
       .pane-label {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.62rem;
+        font-size: 0.78rem;
         font-weight: 600;
         letter-spacing: 0.04em;
         color: var(--muted);
@@ -408,8 +399,7 @@
       }
 
       .instr {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.62rem;
+        font-size: 0.8rem;
         font-weight: 500;
         padding: 5px 8px;
         border-radius: 3px;
@@ -472,8 +462,7 @@
       }
 
       .metric-label {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.62rem;
+        font-size: 0.82rem;
         color: var(--muted);
         letter-spacing: 0.04em;
         margin-top: 6px;
@@ -488,8 +477,7 @@
       }
 
       .label {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.70rem;
+        font-size: 0.85rem;
         font-weight: 600;
         letter-spacing: 0.06em;
         color: var(--accent);
@@ -535,11 +523,10 @@
       .feat:hover { background: var(--surface-glow); }
 
       .feat-idx {
-        font-family: 'IBM Plex Mono', monospace;
         font-weight: 600;
-        font-size: 0.68rem;
+        font-size: 0.84rem;
         color: var(--accent);
-        letter-spacing: 0.04em;
+        letter-spacing: 0.08em;
         margin-bottom: 18px;
       }
 
@@ -604,8 +591,7 @@
       }
 
       .callout-chip {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.62rem;
+        font-size: 0.78rem;
         font-weight: 600;
         letter-spacing: 0.04em;
         padding: 4px 10px;
@@ -682,8 +668,7 @@
         background: var(--surface-2);
         border: 1px solid var(--border-strong);
         border-radius: 4px;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.68rem;
+        font-size: 0.82rem;
         font-weight: 600;
         color: var(--accent);
       }
@@ -758,8 +743,7 @@
         background: var(--green-dim);
         color: var(--green);
         border-radius: 3px;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.72rem;
+        font-size: 0.82rem;
         font-weight: 600;
         margin-top: 1px;
       }
@@ -792,6 +776,29 @@
 
       .persona:last-child { border-right: none; }
       .persona:hover { background: var(--surface-glow); }
+
+      .persona-icon {
+        width: 52px;
+        height: 52px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        border: 1px solid rgba(212, 164, 70, 0.2);
+        border-radius: 14px;
+        background: linear-gradient(180deg, rgba(212, 164, 70, 0.1), rgba(212, 164, 70, 0.03));
+        color: var(--accent);
+      }
+
+      .persona-icon svg {
+        width: 24px;
+        height: 24px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
 
       .persona-bar {
         width: 36px;
@@ -843,22 +850,20 @@
 
       .cta-note {
         margin-top: 14px;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.66rem;
+        font-size: 0.88rem;
         color: var(--muted);
         letter-spacing: 0.04em;
       }
 
       /* ═══════════════════════════════════════════
-         FOOTER — Technical Grid monospace
+         FOOTER — Technical Grid
          ═══════════════════════════════════════════ */
       .site-footer {
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 20px 48px;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.66rem;
+        font-size: 0.88rem;
         color: var(--muted);
         letter-spacing: 0.04em;
       }
@@ -880,8 +885,7 @@
       .back-link {
         color: var(--muted);
         text-decoration: none;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.72rem;
+        font-size: 0.9rem;
         letter-spacing: 0.04em;
         transition: color 180ms;
       }
@@ -964,10 +968,8 @@
         .nav { padding: 0 16px; }
         .site-footer { padding: 16px; flex-direction: column; gap: 8px; text-align: center; }
       }
-    </style>
-  </head>
-  <body>
-    <div class="relative">
+  </style>
+  <div class="relative">
       <!-- NAV -->
       <nav class="nav">
         <div class="nav-left">
@@ -976,9 +978,7 @@
           <span class="nav-tag">v0.13 beta</span>
         </div>
         <ul class="nav-links">
-          <li><a href="#features">Features</a></li>
-          <li><a href="#workflow">Workflow</a></li>
-          <li><a href="#users">Users</a></li>
+          <li><a href="/docs/">Documentation</a></li>
         </ul>
         <a href="#download" class="nav-cta">Download</a>
       </nav>
@@ -997,8 +997,8 @@
             no software expertise required.
           </p>
           <div class="hero-actions">
+            <a href="/docs/" class="btn-ghost">Read documentation</a>
             <a href="#download" class="btn-primary">Download for Windows</a>
-            <a href="#features" class="btn-ghost">Explore features</a>
           </div>
         </div>
 
@@ -1142,9 +1142,8 @@
         <div class="workflow-steps">
           <div class="step">
             <div class="step-num">1</div>
-            <div>
-              <div class="step-title">Sync</div>
-              <p>Pull the latest from your team's shared repo.</p>
+          </div>
+        </BaseLayout>
             </div>
           </div>
           <div class="step">
@@ -1201,16 +1200,42 @@
       </div>
       <section class="personas reveal" id="users">
         <div class="persona">
+          <div class="persona-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="7.5" r="3.5"></circle>
+              <path d="M5.5 19c0-3 2.9-5 6.5-5s6.5 2 6.5 5"></path>
+              <path d="M17 4.5l1.2.8 1.4-.3-.3 1.4.8 1.2-1.4.3-.8 1.2-.8-1.2-1.4-.3.8-1.2-.3-1.4 1.4.3z"></path>
+            </svg>
+          </div>
           <div class="persona-bar"></div>
           <h3>Lead Engineers</h3>
           <p>Maintain a clean Golden Master. Review every change before it goes live on the plant floor.</p>
         </div>
         <div class="persona">
+          <div class="persona-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M14.5 5.5 18.5 9.5"></path>
+              <path d="M10 18l-4 1 1-4 8.8-8.8a1.8 1.8 0 0 1 2.5 0l.5.5a1.8 1.8 0 0 1 0 2.5z"></path>
+              <path d="M13 8l3 3"></path>
+              <path d="M4.5 19.5h6"></path>
+            </svg>
+          </div>
           <div class="persona-bar"></div>
           <h3>Field Technicians</h3>
           <p>Save a checkpoint before commissioning. Revert instantly if something goes wrong. Your safety net.</p>
         </div>
         <div class="persona">
+          <div class="persona-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M4.5 18.5h15"></path>
+              <path d="M7 15V9"></path>
+              <path d="M12 15V5"></path>
+              <path d="M17 15v-3"></path>
+              <circle cx="7" cy="8" r="1"></circle>
+              <circle cx="12" cy="4" r="1"></circle>
+              <circle cx="17" cy="11" r="1"></circle>
+            </svg>
+          </div>
           <div class="persona-bar"></div>
           <h3>Project Managers</h3>
           <p>See who changed what, when. Always have the latest development status for stakeholder reporting.</p>

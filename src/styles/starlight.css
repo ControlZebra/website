@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import './global.css';
 
 :root {
-  --sl-font: 'IBM Plex Sans', 'Segoe UI', sans-serif;
-  --sl-font-system: 'IBM Plex Sans', 'Segoe UI', sans-serif;
-  --sl-font-mono: 'IBM Plex Mono', monospace;
+  --sl-font: var(--font-sans);
+  --sl-font-system: var(--font-sans);
+  --sl-font-mono: var(--font-sans);
   --sl-text-5xl: 3rem;
   --sl-border-radius: 0.8rem;
 }

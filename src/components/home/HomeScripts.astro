@@ -1,0 +1,61 @@
+<script>
+  const revealElements = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));
+
+  if (revealElements.length > 0) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
+    );
+
+    revealElements.forEach((element) => observer.observe(element));
+  }
+
+  const updateScreenshotSource = (container: HTMLElement, nextTheme: 'dark' | 'light') => {
+    const image = container.querySelector<HTMLImageElement>('[data-screenshot-image]');
+    if (!image) {
+      return;
+    }
+
+    const src = nextTheme === 'light' ? image.dataset.lightSrc : image.dataset.darkSrc;
+    const srcSet = nextTheme === 'light' ? image.dataset.lightSrcset : image.dataset.darkSrcset;
+
+    if (src) {
+      image.src = src;
+    }
+
+    if (srcSet) {
+      image.srcset = srcSet;
+    } else {
+      image.removeAttribute('srcset');
+    }
+  };
+
+  document.querySelectorAll<HTMLElement>('.switch-track').forEach((track) => {
+    const container = track.closest<HTMLElement>('[data-screenshot-theme]');
+    if (!container) {
+      return;
+    }
+
+    const toggle = () => {
+      const nextTheme = container.dataset.screenshotTheme === 'dark' ? 'light' : 'dark';
+      container.dataset.screenshotTheme = nextTheme;
+      track.setAttribute('aria-checked', nextTheme === 'light' ? 'true' : 'false');
+      updateScreenshotSource(container, nextTheme);
+    };
+
+    track.addEventListener('click', toggle);
+    track.addEventListener('keydown', (event: KeyboardEvent) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggle();
+      }
+    });
+  });
+</script>

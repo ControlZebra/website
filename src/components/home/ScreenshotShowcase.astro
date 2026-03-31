@@ -1,0 +1,64 @@
+---
+interface Props {
+  containerClass: string;
+  shellClass: string;
+  wrapperClass: string;
+  imageClass: string;
+  darkSrc: string;
+  lightSrc: string;
+  alt: string;
+  loading?: 'eager' | 'lazy';
+  fetchPriority?: 'high' | 'low' | 'auto';
+  darkSrcSet?: string;
+  lightSrcSet?: string;
+  sizes?: string;
+  width?: number;
+  height?: number;
+}
+
+const {
+  containerClass,
+  shellClass,
+  wrapperClass,
+  imageClass,
+  darkSrc,
+  lightSrc,
+  alt,
+  loading = 'lazy',
+  fetchPriority,
+  darkSrcSet,
+  lightSrcSet,
+  sizes,
+  width,
+  height,
+} = Astro.props;
+---
+
+<div class={containerClass} data-screenshot-theme="dark">
+  <div class="theme-switch">
+    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+    <div class="switch-track" role="switch" aria-label="Toggle screenshot theme" aria-checked="false" tabindex="0"><div class="switch-knob"></div></div>
+    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+  </div>
+  <div class={shellClass}>
+    <div class={wrapperClass}>
+      <img
+        src={darkSrc}
+        srcset={darkSrcSet}
+        sizes={sizes}
+        alt={alt}
+        class={imageClass}
+        loading={loading}
+        fetchpriority={fetchPriority}
+        width={width}
+        height={height}
+        decoding="async"
+        data-screenshot-image
+        data-dark-src={darkSrc}
+        data-light-src={lightSrc}
+        data-dark-srcset={darkSrcSet}
+        data-light-srcset={lightSrcSet}
+      />
+    </div>
+  </div>
+</div>

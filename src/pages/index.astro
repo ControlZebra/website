@@ -1,1136 +1,191 @@
 ---
-/**
- * ControlZebra Grid — Hybrid Design
- *
- * Fuses Technical Grid's structural precision (edge-to-edge border grid,
- * monospace metadata, flat dark surfaces, numbered indices) with the
- * ControlZebra landing page's atmospheric depth (radial gradient glows,
- * grid overlay, ladder logic diff visualization, industrial warmth).
- *
- * Fonts: DM Sans (display + body), IBM Plex Mono (technical)
- * Palette: Deep slate (#12161c) → amber (#d4a446) accent → green (#4fad56) status
- * Mood: Industrial spec-sheet meets atmospheric product marketing
- */
+import ScreenshotShowcase from '../components/home/ScreenshotShowcase.astro';
+import SectionHeader from '../components/home/SectionHeader.astro';
+import MetricsStrip from '../components/home/MetricsStrip.astro';
+import PersonaCards from '../components/home/PersonaCards.astro';
+import CtaBlock from '../components/home/CtaBlock.astro';
+import HomeScripts from '../components/home/HomeScripts.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/home.css';
+
+const features = [
+  {
+    index: '01',
+    title: 'Visual Diff Engine',
+    description:
+      'See exactly which rungs changed. Side-by-side comparison highlights added, removed, and modified instructions instantly.',
+  },
+  {
+    index: '02',
+    title: 'One-Click Rollback',
+    description:
+      'Made a mistake during commissioning? Rewind to any previous version with a single click. Your safety net for the field.',
+  },
+  {
+    index: '03',
+    title: 'Offline-First',
+    description:
+      'Save versions on your laptop in the field. Sync to GitHub or GitLab when you are back on the network. No servers needed.',
+  },
+];
+
+const infraChecks = [
+  {
+    heading: 'GitHub ready.',
+    description: 'Connects to the platforms you already use.',
+  },
+  {
+    heading: 'Light-weight app (~17 MB).',
+    description: 'No bulky installations or background services slowing down your laptop.',
+  },
+  {
+    heading: 'Offline-first.',
+    description: 'Commit your changes in the field and sync when you are back on the network.',
+  },
+];
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ControlZebra | Version Control for the Factory Floor</title>
-    <meta name="description" content="A fast, visual Git client purpose-built for PLC engineers. Compare ladder logic diffs, rollback safely, and sync when ready." />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      /* ═══════════════════════════════════════════
-         TOKENS
-         ═══════════════════════════════════════════ */
-      :root {
-        --bg:           #12161c;
-        --bg-warm:      #161a21;
-        --surface:      #1a1f27;
-        --surface-2:    #20262f;
-        --surface-glow: rgba(212, 164, 70, 0.04);
-        --border:       rgba(148, 163, 184, 0.12);
-        --border-strong: rgba(148, 163, 184, 0.22);
-        --text:         #e4e8ed;
-        --text-2:       #c0c8d2;
-        --muted:        #7b8694;
-        --accent:       #d4a446;
-        --accent-dim:   #b5903c;
-        --accent-glow:  rgba(212, 164, 70, 0.14);
-        --green:        #4fad56;
-        --green-dim:    rgba(79, 173, 86, 0.12);
-        --red:          #c05252;
-        --red-dim:      rgba(192, 82, 82, 0.10);
-        --content:      1200px;
-      }
-
-      * { box-sizing: border-box; margin: 0; padding: 0; }
-      html { scroll-behavior: smooth; }
-
-      body {
-        font-family: 'DM Sans', system-ui, sans-serif;
-        background: var(--bg);
-        color: var(--text);
-        min-height: 100vh;
-        -webkit-font-smoothing: antialiased;
-        overflow-x: hidden;
-      }
-
-      /* ── Atmospheric overlays (from landing page) ── */
-      body::before {
-        content: '';
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        z-index: 0;
-        background:
-          radial-gradient(ellipse 60% 40% at 10% 5%, rgba(212, 164, 70, 0.10), transparent),
-          radial-gradient(ellipse 40% 30% at 90% 8%, rgba(79, 173, 86, 0.06), transparent);
-      }
-
-      body::after {
-        content: '';
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        z-index: 0;
-        background-image:
-          linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
-        background-size: 80px 80px;
-        mask-image: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, transparent 60%);
-      }
-
-      a { color: inherit; text-decoration: none; }
-
-      .relative { position: relative; z-index: 1; }
-
-      /* ═══════════════════════════════════════════
-         NAV — Technical Grid style, edge-to-edge
-         ═══════════════════════════════════════════ */
-      .nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 48px;
-        height: 56px;
-        border-bottom: 1px solid var(--border);
-        position: relative;
-        z-index: 10;
-      }
-
-      .nav-left {
-        display: flex;
-        align-items: center;
-        gap: 24px;
-      }
-
-      .nav-brand {
-        font-weight: 700;
-        font-size: 1.15rem;
-        letter-spacing: 0.02em;
-        color: var(--text);
-      }
-
-      .nav-tag {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.58rem;
-        font-weight: 500;
-        letter-spacing: 0.06em;
-        color: var(--accent);
-        padding: 3px 8px;
-        border: 1px solid rgba(212, 164, 70, 0.25);
-        border-radius: 3px;
-        line-height: 1;
-      }
-
-      .nav-links {
-        display: flex;
-        gap: 28px;
-        list-style: none;
-        align-items: center;
-      }
-
-      .nav-links a {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.82rem;
-        letter-spacing: 0.04em;
-        color: var(--muted);
-        transition: color 180ms;
-      }
-
-      .nav-links a:hover { color: var(--accent); }
-
-      .nav-cta {
-        padding: 8px 20px;
-        background: var(--accent);
-        color: var(--bg);
-        font-family: 'DM Sans', sans-serif;
-        font-weight: 600;
-        font-size: 0.75rem;
-        letter-spacing: 0.02em;
-        border-radius: 4px;
-        transition: background 180ms, transform 140ms;
-      }
-
-      .nav-cta:hover { background: var(--accent-dim); transform: translateY(-1px); }
-
-      /* ═══════════════════════════════════════════
-         HERO — Split grid + ladder logic visual
-         ═══════════════════════════════════════════ */
-      .hero {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        min-height: 86vh;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .hero-copy {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 80px 64px;
-        position: relative;
-      }
-
-      .hero-status {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 40px;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.70rem;
-        letter-spacing: 0.06em;
-        color: var(--accent);
-      }
-
-      .status-dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--green);
-        box-shadow: 0 0 8px rgba(79, 173, 86, 0.5);
-        animation: pulse-dot 2.4s ease-in-out infinite;
-      }
-
-      @keyframes pulse-dot {
-        0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(79, 173, 86, 0.5); }
-        50% { opacity: 0.6; box-shadow: 0 0 12px rgba(79, 173, 86, 0.3); }
-      }
-
-      h1 {
-        font-weight: 700;
-        font-size: clamp(2.8rem, 4.8vw, 4.4rem);
-        line-height: 1;
-        letter-spacing: -0.02em;
-        margin-bottom: 28px;
-      }
-
-      h1 .accent { color: var(--accent); }
-
-      .hero-desc {
-        font-size: 1.05rem;
-        line-height: 1.7;
-        color: var(--muted);
-        max-width: 44ch;
-        margin-bottom: 40px;
-      }
-
-      .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-
-      .btn-primary {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 14px 28px;
-        background: var(--accent);
-        color: var(--bg);
-        font-weight: 600;
-        font-size: 0.84rem;
-        letter-spacing: 0.02em;
-        border-radius: 4px;
-        transition: background 180ms, transform 140ms, box-shadow 180ms;
-        box-shadow: 0 8px 24px rgba(212, 164, 70, 0.18);
-      }
-
-      .btn-primary:hover {
-        background: var(--accent-dim);
-        transform: translateY(-1px);
-        box-shadow: 0 12px 32px rgba(212, 164, 70, 0.24);
-      }
-
-      .btn-ghost {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 14px 28px;
-        border: 1px solid var(--border-strong);
-        border-radius: 4px;
-        color: var(--text-2);
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.75rem;
-        letter-spacing: 0.04em;
-        transition: border-color 180ms, color 180ms;
-      }
-
-      .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-
-      /* ── Hero visual — desktop shell mock ─────── */
-      .hero-visual {
-        border-left: 1px solid var(--border);
-        background:
-          radial-gradient(ellipse 80% 60% at 50% 50%, var(--surface-glow), transparent),
-          var(--surface);
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        padding: 48px 0 48px 40px;
-        position: relative;
-        overflow: hidden;
-      }
-
-
-
-      .desktop-shell {
-        width: 100%;
-        max-width: 720px;
-        background: #0f1319;
-        border: 1px solid var(--border-strong);
-        border-right: none;
-        border-radius: 10px 0 0 10px;
-        overflow: hidden;
-        box-shadow:
-          0 24px 60px rgba(0, 0, 0, 0.45),
-          0 0 0 1px rgba(255, 255, 255, 0.02);
-        animation: float-in 0.8s ease-out both;
-        position: relative;
-      }
-
-      /* ── Screenshot image (cropped to left 70%) ── */
-      .desktop-screenshot-wrap {
-        position: relative;
-        line-height: 0;
-        overflow: hidden;
-      }
-
-      .desktop-screenshot {
-        width: 142.86%; /* 100 / 0.70 — shows left 70% of image */
-        max-width: none;
-        height: auto;
-      }
-
-      @keyframes float-in {
-        from { opacity: 0; transform: translateY(16px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-
-      /* ── Theme toggle switch for screenshots ── */
-      .theme-switch {
-        position: absolute;
-        top: 16px;
-        right: 20px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        z-index: 5;
-        color: var(--muted);
-      }
-
-      .theme-switch svg {
-        width: 13px;
-        height: 13px;
-        fill: none;
-        stroke: currentColor;
-        stroke-width: 2;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        flex-shrink: 0;
-        transition: color 180ms;
-      }
-
-      .theme-switch .icon-sun { color: var(--muted); }
-      .theme-switch .icon-moon { color: var(--accent); }
-      [data-screenshot-theme="light"] .theme-switch .icon-sun { color: var(--accent); }
-      [data-screenshot-theme="light"] .theme-switch .icon-moon { color: var(--muted); }
-
-      .switch-track {
-        position: relative;
-        width: 36px;
-        height: 20px;
-        background: var(--surface-2);
-        border: 1px solid var(--border-strong);
-        border-radius: 10px;
-        cursor: pointer;
-        transition: border-color 180ms;
-      }
-
-      .switch-track:hover { border-color: var(--accent); }
-
-      .switch-knob {
-        position: absolute;
-        top: 2px;
-        left: 2px;
-        width: 14px;
-        height: 14px;
-        background: var(--accent);
-        border-radius: 50%;
-        transition: transform 200ms ease;
-        transform: translateX(16px);
-      }
-
-      [data-screenshot-theme="light"] .switch-knob {
-        transform: translateX(0);
-      }
-
-      .screenshot-img-dark { display: block; }
-      .screenshot-img-light { display: none; }
-      [data-screenshot-theme="light"] .screenshot-img-dark { display: none; }
-      [data-screenshot-theme="light"] .screenshot-img-light { display: block; }
-
-      /* ═══════════════════════════════════════════
-         METRICS BAND — Technical Grid signature
-         ═══════════════════════════════════════════ */
-      .metrics {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        border-bottom: 1px solid var(--border);
-      }
-
-      .metric {
-        padding: 40px 32px;
-        border-right: 1px solid var(--border);
-        text-align: center;
-        transition: background 280ms;
-      }
-
-      .metric:last-child { border-right: none; }
-      .metric:hover { background: var(--surface-glow); }
-
-      .metric-val {
-        font-weight: 700;
-        font-size: 1.65rem;
-        color: var(--accent);
-        letter-spacing: -0.01em;
-      }
-
-      .metric-label {
-        font-family: 'DM Sans', system-ui, sans-serif;
-        font-size: 0.68rem;
-        font-weight: 500;
-        text-transform: uppercase;
-        color: var(--muted);
-        letter-spacing: 0.08em;
-        margin-top: 10px;
-      }
-
-      /* ═══════════════════════════════════════════
-         SECTION SYSTEM
-         ═══════════════════════════════════════════ */
-      .section-header {
-        padding: 80px 56px 0;
-        max-width: 56ch;
-      }
-
-      .label {
-        font-family: 'DM Sans', system-ui, sans-serif;
-        font-size: 0.72rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.10em;
-        color: var(--accent);
-        margin-bottom: 12px;
-      }
-
-      h2 {
-        font-weight: 700;
-        font-size: clamp(1.6rem, 2.8vw, 2.2rem);
-        line-height: 1.08;
-        letter-spacing: -0.01em;
-        margin-bottom: 16px;
-      }
-
-      .section-header p {
-        color: var(--muted);
-        line-height: 1.65;
-        font-size: 0.98rem;
-      }
-
-      h3 {
-        font-weight: 700;
-        font-size: 1.1rem;
-        letter-spacing: -0.01em;
-      }
-
-      /* ═══════════════════════════════════════════
-         FEATURES — 3-col grid from Technical Grid
-         ═══════════════════════════════════════════ */
-      .features {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        border-bottom: 1px solid var(--border);
-      }
-
-      .feat {
-        padding: 56px;
-        border-right: 1px solid var(--border);
-        transition: background 280ms;
-      }
-
-      .feat:last-child { border-right: none; }
-      .feat:hover { background: var(--surface-glow); }
-
-      .feat-idx {
-        font-family: 'IBM Plex Mono', monospace;
-        font-weight: 600;
-        font-size: 0.68rem;
-        color: var(--accent);
-        letter-spacing: 0.04em;
-        margin-bottom: 22px;
-      }
-
-      .feat h3 { margin-bottom: 14px; }
-
-      .feat p {
-        color: var(--muted);
-        line-height: 1.65;
-        font-size: 0.92rem;
-      }
-
-      /* ═══════════════════════════════════════════
-         DIFF CALLOUT — Bullet panel
-         Merges Landing Page bullet chips + Technical Grid layout
-         ═══════════════════════════════════════════ */
-      .callout {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .callout-copy {
-        padding: 80px 64px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-
-      .callout-copy h2 { margin-bottom: 20px; }
-
-      .callout-copy > p {
-        color: var(--muted);
-        line-height: 1.65;
-        max-width: 40ch;
-      }
-
-      .callout-visual {
-        border-left: 1px solid var(--border);
-        background:
-          radial-gradient(ellipse 80% 60% at 50% 50%, var(--surface-glow), transparent),
-          var(--surface);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 48px;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .diff-shell {
-        width: 100%;
-        max-width: 640px;
-        background: #0f1319;
-        border: 1px solid var(--border-strong);
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow:
-          0 24px 60px rgba(0, 0, 0, 0.45),
-          0 0 0 1px rgba(255, 255, 255, 0.02);
-      }
-
-      .diff-screenshot-wrap {
-        position: relative;
-        line-height: 0;
-        overflow: hidden;
-      }
-
-      .diff-screenshot {
-        width: 100%;
-        height: auto;
-      }
-
-      /* ═══════════════════════════════════════════
-         WORKFLOW — File Manager screenshot
-         ═══════════════════════════════════════════ */
-      .workflow {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .workflow-copy {
-        padding: 80px 64px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-
-      .workflow-copy h2 { margin-bottom: 20px; }
-
-      .workflow-copy > p {
-        color: var(--muted);
-        line-height: 1.65;
-        max-width: 42ch;
-      }
-
-      .workflow-visual {
-        border-left: 1px solid var(--border);
-        background:
-          radial-gradient(ellipse 80% 60% at 50% 50%, var(--surface-glow), transparent),
-          var(--surface);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 48px;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .files-shell {
-        width: 100%;
-        max-width: 640px;
-        background: #0f1319;
-        border: 1px solid var(--border-strong);
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow:
-          0 24px 60px rgba(0, 0, 0, 0.45),
-          0 0 0 1px rgba(255, 255, 255, 0.02);
-      }
-
-      .files-screenshot-wrap {
-        position: relative;
-        line-height: 0;
-        overflow: hidden;
-      }
-
-      .files-screenshot {
-        width: 100%;
-        height: auto;
-      }
-
-      /* ═══════════════════════════════════════════
-         INFRASTRUCTURE — Checklist split
-         ═══════════════════════════════════════════ */
-      .infra {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .infra-copy {
-        padding: 80px 64px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-
-      .infra-copy h2 { margin-bottom: 20px; }
-
-      .infra-copy > p {
-        color: var(--muted);
-        line-height: 1.65;
-        max-width: 40ch;
-      }
-
-      .infra-checks {
-        padding: 56px;
-        background: var(--surface);
-        border-left: 1px solid var(--border);
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        justify-content: center;
-      }
-
-      .check-row {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 14px;
-        align-items: start;
-        padding: 20px 22px;
-        border-radius: 4px;
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid var(--border);
-        transition: border-color 200ms;
-      }
-
-      .check-row:hover { border-color: rgba(79, 173, 86, 0.25); }
-
-      .check-icon {
-        width: 24px;
-        height: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: var(--green-dim);
-        color: var(--green);
-        border-radius: 3px;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.72rem;
-        font-weight: 600;
-        margin-top: 1px;
-      }
-
-      .check-row p {
-        color: var(--text-2);
-        font-size: 0.92rem;
-        line-height: 1.55;
-      }
-
-      .check-row strong {
-        color: var(--text);
-        font-weight: 600;
-      }
-
-      /* ═══════════════════════════════════════════
-         PERSONAS — 3-col + accent bars
-         ═══════════════════════════════════════════ */
-      .personas {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        border-bottom: 1px solid var(--border);
-      }
-
-      .persona {
-        padding: 56px;
-        border-right: 1px solid var(--border);
-        transition: background 280ms;
-      }
-
-      .persona:last-child { border-right: none; }
-      .persona:hover { background: var(--surface-glow); }
-
-      .persona-bar {
-        width: 36px;
-        height: 3px;
-        background: linear-gradient(90deg, var(--accent), var(--accent-dim));
-        margin-bottom: 24px;
-        border-radius: 2px;
-      }
-
-      .persona h3 { margin-bottom: 14px; }
-
-      .persona p {
-        color: var(--muted);
-        line-height: 1.65;
-        font-size: 0.92rem;
-      }
-
-      /* ═══════════════════════════════════════════
-         CTA
-         ═══════════════════════════════════════════ */
-      .cta {
-        padding: 100px 56px;
-        text-align: center;
-        border-bottom: 1px solid var(--border);
-        position: relative;
-      }
-
-      .cta::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        background:
-          radial-gradient(ellipse 50% 60% at 50% 100%, rgba(212, 164, 70, 0.06), transparent);
-      }
-
-      .cta h2 {
-        font-size: clamp(1.8rem, 3.2vw, 2.5rem);
-        margin-bottom: 20px;
-      }
-
-      .cta h2 .accent { color: var(--accent); }
-
-      .cta > p {
-        color: var(--muted);
-        margin-bottom: 40px;
-        font-size: 1.02rem;
-      }
-
-      .cta-note {
-        margin-top: 20px;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.66rem;
-        color: var(--muted);
-        letter-spacing: 0.04em;
-      }
-
-      /* ═══════════════════════════════════════════
-         FOOTER — Technical Grid monospace
-         ═══════════════════════════════════════════ */
-      .site-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 28px 48px;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.66rem;
-        color: var(--muted);
-        letter-spacing: 0.04em;
-      }
-
-      .footer-left {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-      }
-
-      .footer-dot {
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        background: var(--accent);
-        opacity: 0.5;
-      }
-
-      .back-link {
-        color: var(--muted);
-        text-decoration: none;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.72rem;
-        letter-spacing: 0.04em;
-        transition: color 180ms;
-      }
-
-      .back-link:hover { color: var(--accent); }
-
-      /* ═══════════════════════════════════════════
-         SCROLL REVEAL
-         ═══════════════════════════════════════════ */
-      .reveal {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-      }
-
-      .reveal.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      /* ═══════════════════════════════════════════
-         RESPONSIVE
-         ═══════════════════════════════════════════ */
-      @media (max-width: 960px) {
-        .hero,
-        .callout,
-        .workflow,
-        .infra,
-        .features,
-        .personas,
-        .metrics {
-          grid-template-columns: 1fr;
-        }
-
-        .feat,
-        .persona,
-        .metric {
-          border-right: none;
-          border-bottom: 1px solid var(--border);
-        }
-
-        .feat:last-child,
-        .persona:last-child,
-        .metric:last-child {
-          border-bottom: none;
-        }
-
-        .hero-visual,
-        .callout-visual,
-        .workflow-visual,
-        .infra-checks {
-          border-left: none;
-          border-right: none;
-          border-top: 1px solid var(--border);
-        }
-
-        .nav { padding: 0 24px; }
-        .hero-copy,
-        .callout-copy,
-        .workflow-copy,
-        .infra-copy,
-        .section-header { padding: 56px 28px; }
-        .section-header { padding-bottom: 0; }
-        .hero-visual,
-        .callout-visual,
-        .workflow-visual,
-        .infra-checks { padding: 40px 28px; }
-        .feat, .persona { padding: 40px 28px; }
-        .cta { padding: 72px 28px; }
-
-        .nav-links { display: none; }
-      }
-
-      @media (max-width: 640px) {
-        .desktop-shell {
-          border-radius: 4px;
-        }
-
-        .hero-copy { padding: 32px 20px; }
-        .nav { padding: 0 16px; }
-        .site-footer { padding: 16px; flex-direction: column; gap: 8px; text-align: center; }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="relative">
-      <!-- NAV -->
-      <nav class="nav">
-        <div class="nav-left">
-          <div class="nav-brand">ControlZebra</div>
-          <span class="nav-tag">Public Beta</span>
-        </div>
-        <ul class="nav-links">
-          <li><a href="/docs/">Docs</a></li>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#workflow">Workflow</a></li>
-          <li><a href="#users">Users</a></li>
-        </ul>
-        <a href="#download" class="nav-cta">Download</a>
-      </nav>
-
-      <!-- HERO -->
-      <section class="hero">
-        <div class="hero-copy">
-          <h1>Version Control for the <span class="accent">Factory Floor</span></h1>
-          <p class="hero-desc">
-            A fast, visual Git client purpose-built for automation engineers.
-            Compare ladder logic diffs, rollback safely, and sync when ready &mdash;
-            no software expertise required.
-          </p>
-          <div class="hero-actions">
-            <a href="/docs/" class="btn-ghost">Read documentation</a>
-            <a href="#download" class="btn-primary">Download for Windows</a>
-            <a href="#features" class="btn-ghost">Explore features</a>
-          </div>
-        </div>
-
-        <div class="hero-visual" data-screenshot-theme="dark">
-          <div class="theme-switch">
-            <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-            <div class="switch-track" role="switch" aria-label="Toggle screenshot theme" tabindex="0"><div class="switch-knob"></div></div>
-            <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          </div>
-          <div class="desktop-shell" aria-hidden="true">
-            <div class="desktop-screenshot-wrap">
-              <img
-                src="/img/app-screenshot-dark.png"
-                alt="ControlZebra desktop app in dark theme"
-                class="desktop-screenshot screenshot-img-dark"
-                loading="eager"
-              />
-              <img
-                src="/img/app-screenshot-light.png"
-                alt="ControlZebra desktop app in light theme"
-                class="desktop-screenshot screenshot-img-light"
-                loading="eager"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- METRICS -->
-      <section class="metrics reveal">
-        <div class="metric">
-          <div class="metric-val">2s</div>
-          <div class="metric-label">Avg diff render</div>
-        </div>
-        <div class="metric">
-          <div class="metric-val">0</div>
-          <div class="metric-label">Servers required</div>
-        </div>
-        <div class="metric">
-          <div class="metric-val">100%</div>
-          <div class="metric-label">Offline capable</div>
-        </div>
-        <div class="metric">
-          <div class="metric-val">L5X</div>
-          <div class="metric-label">Native support</div>
-        </div>
-      </section>
-
-      <!-- FEATURES -->
-      <div class="section-header reveal">
-        <h2>Basics done right...</h2>
+<BaseLayout
+  title="ControlZebra | Version Control for the Factory Floor"
+  description="A fast, visual Git client purpose-built for automation engineers. Compare ladder logic diffs, rollback safely, and sync when ready."
+  themeColor="#12161c"
+  bodyClass="homepage"
+>
+  <div class="home-shell">
+    <nav class="nav">
+      <div class="nav-left">
+        <div class="nav-brand">ControlZebra</div>
+        <span class="nav-tag">Public Beta</span>
       </div>
-      <section class="features reveal" id="features">
-        <div class="feat">
-          <div class="feat-idx">01</div>
-          <h3>Visual Diff Engine</h3>
-          <p>See exactly which rungs changed. Side-by-side comparison highlights added, removed, and modified instructions instantly.</p>
-        </div>
-        <div class="feat">
-          <div class="feat-idx">02</div>
-          <h3>One-Click Rollback</h3>
-          <p>Made a mistake during commissioning? Rewind to any previous version with a single click. Your safety net for the field.</p>
-        </div>
-        <div class="feat">
-          <div class="feat-idx">03</div>
-          <h3>Offline-First</h3>
-          <p>Save versions on your laptop in the field. Sync to GitHub or GitLab when you're back on the network. No servers needed.</p>
-        </div>
-      </section>
+      <ul class="nav-links">
+        <li><a href="/docs/">Documentation</a></li>
+      </ul>
+      <a href="#download" class="nav-cta">Download</a>
+    </nav>
 
-      <!-- DIFF CALLOUT -->
-      <section class="callout reveal">
-        <div class="callout-copy">
-          <h2>See exactly what changed.</h2>
-          <p>
-            Stop guessing which rung was modified. The standalone engine renders PLC logic
-            at exceptional speed, so you can compare two versions side-by-side and understand
-            every change in seconds.
-          </p>
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>Version Control for the <span class="accent">Factory Floor</span></h1>
+        <p class="hero-desc">
+          A fast, visual Git client purpose-built for automation engineers. Compare ladder logic diffs,
+          rollback safely, and sync when ready &mdash; no software expertise required.
+        </p>
+        <div class="hero-actions">
+          <a href="/docs/" class="btn-ghost">Read documentation</a>
+          <a href="#download" class="btn-primary">Download for Windows</a>
         </div>
-        <div class="callout-visual" data-screenshot-theme="dark">
-          <div class="theme-switch">
-            <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-            <div class="switch-track" role="switch" aria-label="Toggle screenshot theme" tabindex="0"><div class="switch-knob"></div></div>
-            <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          </div>
-          <div class="diff-shell" aria-hidden="true">
-            <div class="diff-screenshot-wrap">
-              <img
-                src="/img/diff-screenshot-dark.png"
-                alt="ControlZebra diff view in dark theme"
-                class="diff-screenshot screenshot-img-dark"
-                loading="lazy"
-              />
-              <img
-                src="/img/diff-screenshot-light.png"
-                alt="ControlZebra diff view in light theme"
-                class="diff-screenshot screenshot-img-light"
-                loading="lazy"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- WORKFLOW — File Manager -->
-      <section class="workflow reveal" id="workflow">
-        <div class="workflow-visual" data-screenshot-theme="dark">
-          <div class="theme-switch">
-            <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-            <div class="switch-track" role="switch" aria-label="Toggle screenshot theme" tabindex="0"><div class="switch-knob"></div></div>
-            <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          </div>
-          <div class="files-shell" aria-hidden="true">
-            <div class="files-screenshot-wrap">
-              <img
-                src="/img/files-screenshot-dark.png"
-                alt="ControlZebra file browser in dark theme"
-                class="files-screenshot screenshot-img-dark"
-                loading="lazy"
-              />
-              <img
-                src="/img/files-screenshot-light.png"
-                alt="ControlZebra file browser in light theme"
-                class="files-screenshot screenshot-img-light"
-                loading="lazy"
-              />
-            </div>
-          </div>
-        </div>
-        <div class="workflow-copy">
-          <h2>An asset manager you already know.</h2>
-          <p>No terminal. No jargon. Browse your project files, preview changes, and manage versions &mdash; all from an interface that feels like a cloud file browser.</p>
-        </div>
-      </section>
-
-      <!-- INFRASTRUCTURE -->
-      <section class="infra reveal">
-        <div class="infra-copy">
-          <h2>Professional control. Zero complexity.</h2>
-          <p>You don't need to be a software developer to use professional version control.</p>
-        </div>
-        <div class="infra-checks">
-          <div class="check-row">
-            <span class="check-icon">+</span>
-            <p><strong>GitHub ready.</strong> Connects to the platforms you already use.</p>
-          </div>
-          <div class="check-row">
-            <span class="check-icon">+</span>
-            <p><strong>Light-weight app (~17 MB).</strong> No bulky installations or background services slowing down your laptop.</p>
-          </div>
-          <div class="check-row">
-            <span class="check-icon">+</span>
-            <p><strong>Offline-first.</strong> Commit your changes in the field and sync when you're back on the network.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- PERSONAS -->
-      <div class="section-header reveal">
-        <h2>Different jobs. One shared safety layer for PLC changes.</h2>
       </div>
-      <section class="personas reveal" id="users">
-        <div class="persona">
-          <div class="persona-bar"></div>
-          <h3>Lead Engineers</h3>
-          <p>Maintain a clean Golden Master. Review every change before it goes live on the plant floor.</p>
-        </div>
-        <div class="persona">
-          <div class="persona-bar"></div>
-          <h3>Field Technicians</h3>
-          <p>Save a checkpoint before commissioning. Revert instantly if something goes wrong. Your safety net.</p>
-        </div>
-        <div class="persona">
-          <div class="persona-bar"></div>
-          <h3>Project Managers</h3>
-          <p>See who changed what, when. Always have the latest development status for stakeholder reporting.</p>
-        </div>
-      </section>
 
-      <!-- CTA -->
-      <section class="cta reveal" id="download">
-        <h2>Stop guessing. <span class="accent">Start tracking.</span></h2>
-        <p>Download the lightweight Git client built for automation teams.</p>
-        <a href="#" class="btn-primary">Get ControlZebra Free</a>
-        <div class="cta-note">Windows-first &middot; Offline-capable &middot; GitHub &amp; GitLab ready</div>
-      </section>
+      <ScreenshotShowcase
+        containerClass="hero-visual"
+        shellClass="desktop-shell"
+        wrapperClass="desktop-screenshot-wrap"
+        imageClass="desktop-screenshot"
+        darkSrc="/img/app-screenshot-dark-1600.png"
+        darkSrcSet="/img/app-screenshot-dark-1600.png 1600w, /img/app-screenshot-dark.png 2936w"
+        lightSrc="/img/app-screenshot-light-1600.png"
+        lightSrcSet="/img/app-screenshot-light-1600.png 1600w, /img/app-screenshot-light.png 2940w"
+        sizes="(max-width: 960px) 100vw, 1030px"
+        alt="ControlZebra desktop application screenshot"
+        loading="eager"
+        fetchPriority="high"
+        width={2940}
+        height={1848}
+      />
+    </section>
 
-      <!-- FOOTER -->
-      <footer class="site-footer">
-        <div class="footer-left">
-          <span>ControlZebra &copy; 2026</span>
-          <span class="footer-dot"></span>
-          <span>PLC version control with visual diff</span>
-        </div>
-        <span>ControlZebra Grid</span>
-      </footer>
-    </div>
+    <MetricsStrip />
 
-    <script>
-      // Scroll reveal — lightweight IntersectionObserver
-      const reveals = document.querySelectorAll('.reveal');
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-      );
-      reveals.forEach((el) => observer.observe(el));
+    <SectionHeader title="Basics done right..." />
+    <section class="features reveal" id="features">
+      {
+        features.map((feature) => (
+          <div class="feat">
+            <div class="feat-idx">{feature.index}</div>
+            <h3>{feature.title}</h3>
+            <p>{feature.description}</p>
+          </div>
+        ))
+      }
+    </section>
 
-      // Screenshot theme toggle switches
-      document.querySelectorAll<HTMLElement>('.switch-track').forEach((track) => {
-        const toggle = () => {
-          const container = track.closest<HTMLElement>('[data-screenshot-theme]');
-          if (!container) {
-            return;
-          }
+    <section class="callout reveal">
+      <div class="callout-copy">
+        <h2>See exactly what changed.</h2>
+        <p>
+          Stop guessing which rung was modified. The standalone engine renders PLC logic at exceptional
+          speed, so you can compare two versions side-by-side and understand every change in seconds.
+        </p>
+      </div>
+      <ScreenshotShowcase
+        containerClass="callout-visual"
+        shellClass="diff-shell"
+        wrapperClass="diff-screenshot-wrap"
+        imageClass="diff-screenshot"
+        darkSrc="/img/diff-screenshot-dark.png"
+        lightSrc="/img/diff-screenshot-light.png"
+        alt="ControlZebra diff view screenshot"
+        loading="lazy"
+        width={1246}
+        height={322}
+      />
+    </section>
 
-          const next = container.dataset.screenshotTheme === 'dark' ? 'light' : 'dark';
-          container.dataset.screenshotTheme = next;
-          track.setAttribute('aria-checked', next === 'light' ? 'true' : 'false');
-        };
-        track.addEventListener('click', toggle);
-        track.addEventListener('keydown', (e: KeyboardEvent) => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
-        });
-      });
-    </script>
-  </body>
-</html>
+    <section class="workflow reveal" id="workflow">
+      <ScreenshotShowcase
+        containerClass="workflow-visual"
+        shellClass="files-shell"
+        wrapperClass="files-screenshot-wrap"
+        imageClass="files-screenshot"
+        darkSrc="/img/files-screenshot-dark.png"
+        darkSrcSet="/img/files-screenshot-dark-1600.png 1600w, /img/files-screenshot-dark.png 2940w"
+        lightSrc="/img/files-screenshot-light.png"
+        lightSrcSet="/img/files-screenshot-light-1600.png 1600w, /img/files-screenshot-light.png 2940w"
+        sizes="(max-width: 960px) calc(100vw - 56px), 640px"
+        alt="ControlZebra file browser screenshot"
+        loading="lazy"
+        width={2940}
+        height={1846}
+      />
+      <div class="workflow-copy">
+        <h2>A file manager you already know.</h2>
+        <p>
+          No terminal. No jargon. Open your project folders, preview changes, and manage versions
+          &mdash; all from an interface that feels like a cloud file browser.
+        </p>
+      </div>
+    </section>
+
+    <section class="infra reveal">
+      <div class="infra-copy">
+        <h2>Professional control. Zero complexity.</h2>
+        <p>You do not need to be a software developer to use professional version control.</p>
+      </div>
+      <div class="infra-checks">
+        {
+          infraChecks.map((item) => (
+            <div class="infra-check-row">
+              <span class="infra-check-icon">+</span>
+              <p><strong>{item.heading}</strong> {item.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <SectionHeader title="Different jobs. One shared safety layer for PLC changes." />
+    <PersonaCards />
+    <CtaBlock />
+
+    <footer class="home-site-footer">
+      <div class="home-footer-left">
+        <span>ControlZebra &copy; 2026</span>
+        <span class="home-footer-dot"></span>
+        <span>PLC version control with visual diff</span>
+      </div>
+      <span>ControlZebra Grid</span>
+    </footer>
+  </div>
+
+  <HomeScripts />
+</BaseLayout>

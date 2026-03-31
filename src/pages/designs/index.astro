@@ -2,21 +2,17 @@
 /**
  * Design Gallery — ControlZebra Grid
  */
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ControlZebra | Design Gallery</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
-      rel="stylesheet"
-    />
-    <style>
+<BaseLayout
+  title="ControlZebra | Design Gallery"
+  description="Experimental ControlZebra marketing page directions and gallery previews."
+  themeColor="#0e0e10"
+  bodyClass="design-gallery"
+>
+  <style>
       :root {
         --bg: #0E0E10;
         --surface: #18181B;
@@ -30,7 +26,7 @@
       * { box-sizing: border-box; margin: 0; padding: 0; }
 
       body {
-        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-family: 'IBM Plex Sans', 'Segoe UI', sans-serif;
         background: var(--bg);
         color: var(--text);
         min-height: 100vh;
@@ -61,9 +57,8 @@
       }
 
       h1 {
-        font-family: 'Instrument Serif', serif;
         font-size: clamp(2.8rem, 5vw, 4.2rem);
-        font-weight: 400;
+        font-weight: 700;
         line-height: 1.1;
         letter-spacing: -0.02em;
         margin-bottom: 16px;
@@ -152,7 +147,6 @@
       .label-czgrid {
         color: #d4a446;
         text-shadow: 0 0 24px rgba(212,164,70,0.25);
-        font-family: 'Plus Jakarta Sans', sans-serif;
         font-weight: 800;
       }
 
@@ -245,10 +239,8 @@
         .card-preview { height: 200px; }
         .gallery-header { padding: 40px 0 48px; }
       }
-    </style>
-  </head>
-  <body>
-    <div class="shell">
+  </style>
+  <div class="shell">
       <header class="gallery-header">
         <div class="gallery-brand">ControlZebra</div>
         <h1>Landing Page<br/>Design</h1>
@@ -264,7 +256,7 @@
           </div>
           <div class="card-info">
             <h3>ControlZebra Grid</h3>
-            <p>Edge-to-edge border structure and monospace metadata system merged with atmospheric gradients, grid overlay, and ladder logic diff visualisation. Syne display font, DM Sans body, IBM Plex Mono labels.</p>
+            <p>Edge-to-edge border structure and structured metadata system merged with atmospheric gradients, grid overlay, and ladder logic diff visualisation using a single IBM Plex Sans UI system.</p>
             <div class="card-tags">
               <span class="card-tag">Dark</span>
               <span class="card-tag">Hybrid</span>
@@ -281,6 +273,5 @@
         <div class="footer-brand">ControlZebra</div>
         <a href="/" class="current-link">View current site &rarr;</a>
       </footer>
-    </div>
-  </body>
-</html>
+  </div>
+</BaseLayout>

@@ -3,10 +3,18 @@ import '../styles/global.css';
 
 interface Props {
   title: string;
-  description: string;
+  description?: string;
+  themeColor?: string;
+  bodyClass?: string;
 }
 
-const { title, description } = Astro.props;
+const {
+  title,
+  description = 'ControlZebra website',
+  themeColor = '#0d1117',
+  bodyClass,
+} = Astro.props;
+const canonicalUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url;
 ---
 
 <!doctype html>
@@ -16,16 +24,16 @@ const { title, description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#0d1117" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Rajdhani:wght@600;700&display=swap"
-      rel="stylesheet"
-    />
+    <meta name="theme-color" content={themeColor} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl.toString()} />
+    <meta name="twitter:card" content="summary_large_image" />
     <title>{title}</title>
+    <slot name="head" />
   </head>
-  <body>
+  <body class={bodyClass}>
     <slot />
   </body>
 </html>

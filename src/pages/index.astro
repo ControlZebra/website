@@ -4,6 +4,8 @@ import SectionHeader from '../components/home/SectionHeader.astro';
 import MetricsStrip from '../components/home/MetricsStrip.astro';
 import PersonaCards from '../components/home/PersonaCards.astro';
 import CtaBlock from '../components/home/CtaBlock.astro';
+import HomeFooter from '../components/home/HomeFooter.astro';
+import HomeHeader from '../components/home/HomeHeader.astro';
 import HomeScripts from '../components/home/HomeScripts.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/home.css';
@@ -52,27 +54,21 @@ const infraChecks = [
   bodyClass="homepage"
 >
   <div class="home-shell">
-    <nav class="nav">
-      <div class="nav-left">
-        <div class="nav-brand">ControlZebra</div>
-        <span class="nav-tag">Public Beta</span>
-      </div>
-      <ul class="nav-links">
-        <li><a href="/docs/">Documentation</a></li>
-      </ul>
-      <a href="#download" class="nav-cta">Download</a>
-    </nav>
+    <HomeHeader />
 
     <section class="hero">
       <div class="hero-copy">
-        <h1>Version Control for the <span class="accent">Factory Floor</span></h1>
+        <h1>Make every change <span class="accent">interpretable</span></h1>
         <p class="hero-desc">
           A fast, visual Git client purpose-built for automation engineers. Compare ladder logic diffs,
           rollback safely, and sync when ready &mdash; no software expertise required.
         </p>
         <div class="hero-actions">
-          <a href="/docs/" class="btn-ghost">Read documentation</a>
-          <a href="#download" class="btn-primary">Download for Windows</a>
+          <a href="https://controlzebra.com/docs/" class="btn-ghost">Read documentation</a>
+          <a
+            href="https://github.com/ControlZebra/controlzebra-releases/releases/latest/download/control-zebra-amd64-installer.exe"
+            class="btn-primary"
+          >Download for Free</a>
         </div>
       </div>
 
@@ -177,14 +173,7 @@ const infraChecks = [
     <PersonaCards />
     <CtaBlock />
 
-    <footer class="home-site-footer">
-      <div class="home-footer-left">
-        <span>ControlZebra &copy; 2026</span>
-        <span class="home-footer-dot"></span>
-        <span>PLC version control with visual diff</span>
-      </div>
-      <span>ControlZebra Grid</span>
-    </footer>
+    <HomeFooter />
   </div>
 
   <HomeScripts />

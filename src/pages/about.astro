@@ -1,0 +1,90 @@
+---
+import HomeFooter from '../components/home/HomeFooter.astro';
+import HomeHeader from '../components/home/HomeHeader.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/home.css';
+---
+
+<BaseLayout
+	title="About ControlZebra"
+	description="Learn about ControlZebra, version control designed for automation teams."
+	themeColor="#12161c"
+	bodyClass="homepage"
+>
+	<div class="home-shell about-page">
+		<HomeHeader />
+		<main class="about-content">
+			<header class="about-intro">
+				<span class="about-logo" aria-hidden="true">Z</span>
+				<h1>About ControlZebra</h1>
+				<p>
+					Clear version history for the full lifecycle of the systems that keep factories moving.
+				</p>
+			</header>
+
+			<div class="about-sections">
+				<section class="about-section" aria-labelledby="mission-title">
+					<h2 id="mission-title">Our Mission</h2>
+					<p>
+						ControlZebra exists to help industrial teams make every change interpretable throughout the
+						full lifecycle of their projects. From design and commissioning to maintenance and future
+						upgrades, teams should be able to see what changed, understand why it changed, and act with
+						confidence.
+					</p>
+					<p>
+						We build practical tools for change visualization, safe rollback, traceability, and approvals
+						so that a project history supports better decisions instead of becoming another system to
+						manage.
+					</p>
+				</section>
+
+				<section class="about-section" aria-labelledby="who-we-are-title">
+					<h2 id="who-we-are-title">Who We Are</h2>
+					<p>
+						ControlZebra was started by an industrial automation engineer turned product manager, with the
+						support of colleagues and friends who know the pressure of keeping real systems running. It
+						grew from a frustration shared by engineers everywhere: the tools needed to manage critical
+						project history are often beyond the reach of smaller teams.
+					</p>
+					<p>
+						We believe industrial software should work with open standards such as XML and give teams
+						the freedom to use the Git host that fits their work. That is how more people can understand,
+						protect, and improve the systems they are trusted to maintain.
+					</p>
+				</section>
+
+				<section class="about-section" aria-labelledby="roadmap-title">
+					<h2 id="roadmap-title">Roadmap</h2>
+					<ol class="roadmap-stages" aria-label="ControlZebra product roadmap">
+								<li class="roadmap-stage roadmap-stage-current">
+									<p class="roadmap-phase">Today</p>
+									<h3>Desktop workflow</h3>
+									<p>Git workflow, visual L5X diffs, history, and rollback.</p>
+								</li>
+								<li class="roadmap-stage">
+									<p class="roadmap-phase">Open Foundation</p>
+									<h3>Parser library</h3>
+									<p>An open-source parser library for industrial project files.</p>
+								</li>
+								<li class="roadmap-stage">
+									<p class="roadmap-phase">Industrial support</p>
+									<h3>Siemens TIA Portal</h3>
+									<p>Project support for Siemens TIA Portal.</p>
+								</li>
+								<li class="roadmap-stage">
+									<p class="roadmap-phase">Git ecosystem</p>
+									<h3>GitLab and Gitea</h3>
+									<p>Support for the Git hosts teams choose for their work.</p>
+								</li>
+								<li class="roadmap-stage">
+									<p class="roadmap-phase">Beyond</p>
+									<h3>More industrial systems</h3>
+									<p>PLC, network switch, HMI, and SCADA project support.</p>
+								</li>
+					</ol>
+				</section>
+			</div>
+		</main>
+		<HomeFooter />
+	</div>
+</BaseLayout>

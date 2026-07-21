@@ -12,7 +12,7 @@ Before you open the installer, make sure that you disable the antivirus as Contr
 ### Step 1: Download the installer
 Make sure you have downloaded the installer from official github release channel link:
 
-[Download ControlZebra Installer for Windows x64](https://github.com/ControlZebra/controlzebra-releases/releases/download/v0.0.1/control-zebra-amd64-installer.exe)
+[Download ControlZebra Installer for Windows x64](https://github.com/ControlZebra/controlzebra-releases/releases/latest/download/control-zebra-amd64-installer.exe)
 
 
 ### Step 2: Open the installer

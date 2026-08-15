@@ -18,6 +18,7 @@
     "deploy:worker-assets": "npm run build && npm run docs:guard && wrangler deploy --dry-run"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
     "@astrojs/starlight": "^0.37.0",
     "astro": "^5.4.0"
   },

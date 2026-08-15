@@ -1,6 +1,8 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
+import sitemap from '@astrojs/sitemap';
+
 export default defineConfig({
   site: 'https://controlzebra.com',
   output: 'static',
@@ -101,6 +103,9 @@ export default defineConfig({
           ],
         },
       ],
+    }),
+    sitemap({
+      filter: (page) => page !== 'https://controlzebra.com/designs/',
     }),
   ],
   server: {
